@@ -1,0 +1,80 @@
+{
+  "digitalTemplates": [
+    {
+      "id": 1,
+      "title": "After Effects Templates",
+      "description": "High-quality, customizable video templates.",
+      "link": "/AfterEffectsTemplates"
+    },
+    {
+      "id": 2,
+      "title": "Figma UI Template",
+      "description": "Modern UI kits to bootstrap your designs.",
+      "link": "/FigmaTemplates"
+    },
+    {
+      "id": 3,
+      "title": "Graphics",
+      "description": "Unique fonts, icons, and graphic assets.",
+      "link": "/Graphics"
+    }
+  ],
+  "premiumAccounts": [
+    {
+      "id": 1,
+      "title": "Canva Pro",
+      "description": "Unlock premium features for all your design needs.",
+      "link": "#"
+    },
+    {
+      "id": 2,
+      "title": "Gemini Pro",
+      "description": "Access advanced AI capabilities for your projects.",
+      "link": "#"
+    },
+    {
+      "id": 3,
+      "title": "ChatGPT Plus",
+      "description": "Get priority access to the latest AI models.",
+      "link": "#"
+    }
+  ],
+  "socialServices": [
+    {
+      "id": 1,
+      "title": "Instagram Followers",
+      "description": "Grow your audience and increase your reach.",
+      "link": "#"
+    },
+    {
+      "id": 2,
+      "title": "YouTube Subscribers",
+      "description": "Build a loyal community around your channel.",
+      "link": "#"
+    },
+    {
+      "id": 3,
+      "title": "Instagram Likes",
+      "description": "Boost engagement on your posts instantly.",
+      "link": "#"
+    }
+  ],
+  "faqData": [
+    {
+      "question": "What types of payment do you accept?",
+      "answer": "We accept all major credit cards, PayPal, and various other secure payment methods to ensure a smooth and safe transaction."
+    },
+    {
+      "question": "Can I use the assets in commercial projects?",
+      "answer": "Yes, our standard license covers both personal and commercial use. Please review the specific license for each item for full details."
+    },
+    {
+      "question": "How do I access my purchased files?",
+      "answer": "Once your purchase is complete, you will receive an email with a secure download link. You can also access your files from your account dashboard on our website."
+    },
+    {
+      "question": "Do you offer refunds?",
+      "answer": "Due to the digital nature of our products, we generally do not offer refunds. However, if you experience technical issues, please contact our support team for assistance."
+    }
+  ]
+}

@@ -1,0 +1,1202 @@
+[
+  {
+    "id": "template1",
+    "name": "Minimalist Instagram Pack",
+    "description": "A versatile set of 50 Instagram post and story templates in a clean, minimal style. Fully editable in Canva.",
+    "price": 249,
+    "images": [
+      "https://placehold.co/1080x1080/F0F0F0/333333?text=Post+1",
+      "https://placehold.co/1080x1920/F0F0F0/333333?text=Story+1",
+      "https://placehold.co/1080x1350/F0F0F0/333333?text=Post+2"
+    ],
+    "zipUrl": "/templates/graphics/template1/download.zip"
+  },
+  {
+    "id": "template2",
+    "name": "Modern After Post Pack",
+    "description": "A set of 30 Instagram post templates in minimal style. Works with Canva.",
+    "price": 199,
+    "images": [
+      "https://placehold.co/1080x1080/333333/FFFFFF?text=Modern+Post",
+      "https://placehold.co/1080x1080/555555/FFFFFF?text=Modern+Quote",
+      "https://placehold.co/1080x1080/111111/FFFFFF?text=Modern+Sale"
+    ],
+    "zipUrl": "/templates/graphics/template2/download.zip"
+  },
+  {
+    "id": "template3",
+    "name": "Boho Chic Story Kit",
+    "description": "Infuse your Instagram with bohemian vibes using these 40 story templates. Perfect for influencers and brands. Editable on Canva.",
+    "price": 299,
+    "images": [
+      "https://placehold.co/1080x1920/D2B48C/FFFFFF?text=Boho+Story+1",
+      "https://placehold.co/1080x1920/C3B091/FFFFFF?text=Boho+Story+2",
+      "https://placehold.co/1080x1920/B8A07E/FFFFFF?text=Boho+Story+3"
+    ],
+    "zipUrl": "/templates/graphics/template3/download.zip"
+  },
+  {
+    "id": "template4",
+    "name": "Urban Grid Layouts",
+    "description": "Create a stunning, cohesive feed with these 25 urban-style grid templates for Canva. Ideal for photographers and artists.",
+    "price": 219,
+    "images": [
+      "https://placehold.co/1080x1080/A9A9A9/222222?text=Urban+1",
+      "https://placehold.co/1080x1080/C0C0C0/222222?text=Urban+2",
+      "https://placehold.co/1080x1080/B0B0B0/222222?text=Urban+3"
+    ],
+    "zipUrl": "/templates/graphics/template4/download.zip"
+  },
+  {
+    "id": "template5",
+    "name": "Vibrant Carousel Creator",
+    "description": "Boost engagement with 15 seamless carousel post templates. Bright, colorful, and easy to edit in Canva.",
+    "price": 189,
+    "images": [
+      "https://placehold.co/1080x1080/FF6347/FFFFFF?text=Slide+1",
+      "https://placehold.co/1080x1080/FFD700/FFFFFF?text=Slide+2",
+      "https://placehold.co/1080x1080/ADFF2F/FFFFFF?text=Slide+3"
+    ],
+    "zipUrl": "/templates/graphics/template5/download.zip"
+  },
+  {
+    "id": "template6",
+    "name": "Luxury Real Estate Posts",
+    "description": "A premium collection of 60 templates for realtors. Showcase properties with elegance. Canva compatible.",
+    "price": 499,
+    "images": [
+      "https://placehold.co/1200x1200/C4A484/000000?text=Listing",
+      "https://placehold.co/1200x1200/D8C8B8/000000?text=Just+Sold",
+      "https://placehold.co/1200x1200/B8A07E/000000?text=Open+House"
+    ],
+    "zipUrl": "/templates/graphics/template6/download.zip"
+  },
+  {
+    "id": "template7",
+    "name": "Fitness Coach Essentials",
+    "description": "Engage your clients with 75 dynamic post and story templates for fitness professionals. Works with Canva.",
+    "price": 349,
+    "images": [
+      "https://placehold.co/1080x1350/228B22/FFFFFF?text=Workout",
+      "https://placehold.co/1080x1920/32CD32/FFFFFF?text=Client+Love",
+      "https://placehold.co/1080x1080/00FF00/FFFFFF?text=Tip+of+the+Day"
+    ],
+    "zipUrl": "/templates/graphics/template7/download.zip"
+  },
+  {
+    "id": "template8",
+    "name": "Food Blogger's Dream",
+    "description": "Make your recipes shine with this pack of 45 delicious-looking templates for foodies. Simple to customize in Canva.",
+    "price": 279,
+    "images": [
+      "https://placehold.co/1080x1080/FF7F50/2E2E2E?text=New+Recipe",
+      "https://placehold.co/1080x1350/FF6347/2E2E2E?text=Ingredients",
+      "https://placehold.co/1080x1920/FFA07A/2E2E2E?text=Behind+the+Scenes"
+    ],
+    "zipUrl": "/templates/graphics/template8/download.zip"
+  },
+  {
+    "id": "template9",
+    "name": "E-commerce Product Showcase",
+    "description": "Drive sales with 50 high-converting templates for online shops. Highlight products and promotions. Edit on Canva.",
+    "price": 399,
+    "images": [
+      "https://placehold.co/1080x1080/87CEEB/1E1E1E?text=New+Arrival",
+      "https://placehold.co/1080x1080/ADD8E6/1E1E1E?text=Flash+Sale",
+      "https://placehold.co/1080x1080/B0E0E6/1E1E1E?text=Customer+Review"
+    ],
+    "zipUrl": "/templates/graphics/template9/download.zip"
+  },
+  {
+    "id": "template10",
+    "name": "Elegant Wedding Suite",
+    "description": "A romantic collection of 30 templates for wedding photographers and planners. Announce, showcase, and celebrate. For Canva.",
+    "price": 329,
+    "images": [
+      "https://placehold.co/1200x1200/F5F5DC/8B4513?text=Save+The+Date",
+      "https://placehold.co/1080x1920/FFF8DC/8B4513?text=Our+Story",
+      "https://placehold.co/1200x1200/FAEBD7/8B4513?text=Thank+You"
+    ],
+    "zipUrl": "/templates/graphics/template10/download.zip"
+  },
+  {
+    "id": "template11",
+    "name": "Author & Podcast Promo",
+    "description": "Promote your book or podcast with these 35 engaging templates. Perfect for writers and hosts. Works with Canva.",
+    "price": 259,
+    "images": [
+      "https://placehold.co/1080x1350/4682B4/FFFFFF?text=New+Episode",
+      "https://placehold.co/1080x1080/5F9EA0/FFFFFF?text=Guest+Speaker",
+      "https://placehold.co/1080x1920/6495ED/FFFFFF?text=Swipe+Up"
+    ],
+    "zipUrl": "/templates/graphics/template11/download.zip"
+  },
+  {
+    "id": "template12",
+    "name": "Digital Nomad Stories",
+    "description": "Share your journey with 40 story templates designed for travelers and remote workers. Editable in Canva.",
+    "price": 289,
+    "images": [
+      "https://placehold.co/1080x1920/FFD700/000080?text=New+Location",
+      "https://placehold.co/1080x1920/FFA500/000080?text=Q%26A",
+      "https://placehold.co/1080x1920/FF8C00/000080?text=My+View"
+    ],
+    "zipUrl": "/templates/graphics/template12/download.zip"
+  },
+  {
+    "id": "template13",
+    "name": "Small Business Starter Kit",
+    "description": "Everything you need to get started. 60 essential templates for quotes, promos, and announcements. Canva-ready.",
+    "price": 449,
+    "images": [
+      "https://placehold.co/1080x1080/90EE90/2F4F4F?text=We+Are+Open",
+      "https://placehold.co/1080x1080/98FB98/2F4F4F?text=Meet+The+Team",
+      "https://placehold.co/1080x1080/8FBC8F/2F4F4F?text=Special+Offer"
+    ],
+    "zipUrl": "/templates/graphics/template13/download.zip"
+  },
+  {
+    "id": "template14",
+    "name": "Pastel Dreams Collection",
+    "description": "A soft and dreamy set of 50 post and story templates. Perfect for lifestyle, beauty, and fashion content. For Canva.",
+    "price": 319,
+    "images": [
+      "https://placehold.co/1080x1350/FFB6C1/663399?text=Pastel+Post",
+      "https://placehold.co/1080x1920/FFC0CB/663399?text=Pastel+Story",
+      "https://placehold.co/1080x1080/FFDAB9/663399?text=Pastel+Quote"
+    ],
+    "zipUrl": "/templates/graphics/template14/download.zip"
+  },
+  {
+    "id": "template15",
+    "name": "Corporate Clean & Modern",
+    "description": "A professional set of 40 templates for businesses and agencies. Graphs, charts, and team intros included. Editable on Canva.",
+    "price": 379,
+    "images": [
+      "https://placehold.co/1080x1080/E6E6FA/00008B?text=Biz+Stat",
+      "https://placehold.co/1080x1080/D8BFD8/00008B?text=Team+Spotlight",
+      "https://placehold.co/1080x1080/E0FFFF/00008B?text=Case+Study"
+    ],
+    "zipUrl": "/templates/graphics/template15/download.zip"
+  },
+  {
+    "id": "template16",
+    "name": "Dark Mode Aesthetics",
+    "description": "A moody and atmospheric pack of 30 templates for a bold, modern look. High contrast and easy to edit in Canva.",
+    "price": 229,
+    "images": [
+      "https://placehold.co/1080x1080/000000/FFFFFF?text=Dark+Aesthetic",
+      "https://placehold.co/1080x1350/1C1C1C/FFFFFF?text=Bold+Statement",
+      "https://placehold.co/1080x1920/2E2E2E/FFFFFF?text=Dark+Story"
+    ],
+    "zipUrl": "/templates/graphics/template16/download.zip"
+  },
+  {
+    "id": "template17",
+    "name": "Educational Infographics",
+    "description": "Teach your audience with 25 data-driven infographic templates. Perfect for coaches and educators. Simple to use on Canva.",
+    "price": 299,
+    "images": [
+      "https://placehold.co/1080x1350/7FFFD4/2F4F4F?text=Chart",
+      "https://placehold.co/1080x1350/66CDAA/2F4F4F?text=Diagram",
+      "https://placehold.co/1080x1350/AFEEEE/2F4F4F?text=Process"
+    ],
+    "zipUrl": "/templates/graphics/template17/download.zip"
+  },
+  {
+    "id": "template18",
+    "name": "Beauty & Skincare Kit",
+    "description": "A gorgeous set of 55 templates for beauty brands and influencers. Showcase products and routines. Works with Canva.",
+    "price": 419,
+    "images": [
+      "https://placehold.co/1080x1080/FFF0F5/C71585?text=Skincare+Tip",
+      "https://placehold.co/1080x1920/FFE4E1/C71585?text=Tutorial",
+      "https://placehold.co/1080x1350/F0FFF0/C71585?text=Before+%26+After"
+    ],
+    "zipUrl": "/templates/graphics/template18/download.zip"
+  },
+  {
+    "id": "template19",
+    "name": "Podcast & Audio Waves",
+    "description": "Promote your podcast with 30 unique audio-focused templates. Visualize your sound. Fully editable in Canva.",
+    "price": 239,
+    "images": [
+      "https://placehold.co/1080x1080/1E90FF/FFFFFF?text=Now+Live",
+      "https://placehold.co/1080x1080/00BFFF/FFFFFF?text=Audiogram",
+      "https://placehold.co/1080x1080/87CEFA/FFFFFF?text=New+Clip"
+    ],
+    "zipUrl": "/templates/graphics/template19/download.zip"
+  },
+  {
+    "id": "template20",
+    "name": "Retro 90s Nostalgia Pack",
+    "description": "A fun and funky collection of 40 templates with a 90s vibe. Perfect for a throwback feed. Easy to edit on Canva.",
+    "price": 269,
+    "images": [
+      "https://placehold.co/1080x1080/FF00FF/00FFFF?text=Totally+90s",
+      "https://placehold.co/1080x1080/00FF00/FFFF00?text=As+If!",
+      "https://placehold.co/1080x1080/FFFF00/FF00FF?text=Game+Over"
+    ],
+    "zipUrl": "/templates/graphics/template20/download.zip"
+  },
+  {
+    "id": "template21",
+    "name": "NFT & Crypto Showcase",
+    "description": "A futuristic set of 25 templates for the Web3 space. Promote your NFT collection or crypto project. For Canva.",
+    "price": 339,
+    "images": [
+      "https://placehold.co/1080x1080/8A2BE2/00FF00?text=NFT+Drop",
+      "https://placehold.co/1080x1080/4B0082/00FF00?text=Minting+Now",
+      "https://placehold.co/1080x1080/9932CC/00FF00?text=Join+Discord"
+    ],
+    "zipUrl": "/templates/graphics/template21/download.zip"
+  },
+  {
+    "id": "template22",
+    "name": "Mindfulness & Wellness",
+    "description": "A calming collection of 50 templates for yoga instructors, coaches, and wellness bloggers. Editable in Canva.",
+    "price": 389,
+    "images": [
+      "https://placehold.co/1080x1350/B2DFDB/004D40?text=Breathe",
+      "https://placehold.co/1080x1920/C8E6C9/004D40?text=Meditation",
+      "https://placehold.co/1080x1080/A5D6A7/004D40?text=Affirmation"
+    ],
+    "zipUrl": "/templates/graphics/template22/download.zip"
+  },
+  {
+    "id": "template23",
+    "name": "Fashion Boutique Stories",
+    "description": "A chic set of 40 animated story templates to showcase your fashion collection. Easy to use with Canva.",
+    "price": 309,
+    "images": [
+      "https://placehold.co/1080x1920/FADADD/800080?text=New+Collection",
+      "https://placehold.co/1080x1920/E6E6FA/800080?text=Lookbook",
+      "https://placehold.co/1080x1920/D8BFD8/800080?text=Style+Inspo"
+    ],
+    "zipUrl": "/templates/graphics/template23/download.zip"
+  },
+  {
+    "id": "template24",
+    "name": "Artist & Creator Portfolio",
+    "description": "A minimal and elegant set of 30 templates to showcase your creative work. Perfect for designers and illustrators on Canva.",
+    "price": 249,
+    "images": [
+      "https://placehold.co/1080x1350/FAFAFA/1A1A1A?text=My+Work",
+      "https://placehold.co/1080x1080/F5F5F5/1A1A1A?text=Project+Details",
+      "https://placehold.co/1080x1920/F0F0F0/1A1A1A?text=Contact+Me"
+    ],
+    "zipUrl": "/templates/graphics/template24/download.zip"
+  },
+  {
+    "id": "template25",
+    "name": "Restaurant & Cafe Menu",
+    "description": "A delicious-looking pack of 35 templates to display your menu, specials, and opening hours. Works with Canva.",
+    "price": 279,
+    "images": [
+      "https://placehold.co/1080x1350/CD853F/FFFFFF?text=Our+Menu",
+      "https://placehold.co/1080x1080/D2691E/FFFFFF?text=Daily+Special",
+      "https://placehold.co/1080x1920/8B4513/FFFFFF?text=Book+a+Table"
+    ],
+    "zipUrl": "/templates/graphics/template25/download.zip"
+  },
+  {
+    "id": "template26",
+    "name": "Kids & Education Pack",
+    "description": "A playful collection of 50 templates for teachers, parents, and kids' brands. Fun and colorful designs. Editable in Canva.",
+    "price": 359,
+    "images": [
+      "https://placehold.co/1080x1080/FFC0CB/0000FF?text=ABC",
+      "https://placehold.co/1080x1080/ADD8E6/0000FF?text=123",
+      "https://placehold.co/1080x1080/90EE90/0000FF?text=Fun+Fact"
+    ],
+    "zipUrl": "/templates/graphics/template26/download.zip"
+  },
+  {
+    "id": "template27",
+    "name": "Travel Blogger Carousel",
+    "description": "A set of 20 seamless carousel templates to share your travel stories and tips. For use with Canva.",
+    "price": 289,
+    "images": [
+      "https://placehold.co/1080x1080/63B3ED/FFFFFF?text=Travel+1",
+      "https://placehold.co/1080x1080/4299E1/FFFFFF?text=Travel+2",
+      "https://placehold.co/1080x1080/3182CE/FFFFFF?text=Travel+3"
+    ],
+    "zipUrl": "/templates/graphics/template27/download.zip"
+  },
+  {
+    "id": "template28",
+    "name": "Professional Webinar Promo",
+    "description": "Promote your online event with 30 professionally designed templates. Includes countdowns and speaker intros. Canva compatible.",
+    "price": 299,
+    "images": [
+      "https://placehold.co/1200x628/4A5568/FFFFFF?text=Webinar+Promo",
+      "https://placehold.co/1080x1080/2D3748/FFFFFF?text=Speaker",
+      "https://placehold.co/1080x1920/1A202C/FFFFFF?text=Register+Now"
+    ],
+    "zipUrl": "/templates/graphics/template28/download.zip"
+  },
+  {
+    "id": "template29",
+    "name": "Memes & Viral Posts",
+    "description": "A pack of 60 hilarious and customizable meme templates. Go viral with ease. Works with Canva.",
+    "price": 149,
+    "images": [
+      "https://placehold.co/1080x1080/FFFFFF/000000?text=Top+Text",
+      "https://placehold.co/1200x800/FFFFFF/000000?text=Your+Meme+Here",
+      "https://placehold.co/1080x1350/FFFFFF/000000?text=Bottom+Text"
+    ],
+    "zipUrl": "/templates/graphics/template29/download.zip"
+  },
+  {
+    "id": "template30",
+    "name": "Inspirational Quote Kit",
+    "description": "A beautiful collection of 100 quote templates in various styles. Perfect for daily inspiration. Simple to edit in Canva.",
+    "price": 499,
+    "images": [
+      "https://placehold.co/1080x1080/ECC94B/1A202C?text=Quote+1",
+      "https://placehold.co/1080x1080/F6E05E/1A202C?text=Quote+2",
+      "https://placehold.co/1080x1080/FAF089/1A202C?text=Quote+3"
+    ],
+    "zipUrl": "/templates/graphics/template30/download.zip"
+  },
+  {
+    "id": "template31",
+    "name": "Musician & Band Promo",
+    "description": "A set of 35 templates for artists and bands to promote new music, tours, and merch. Editable in Canva.",
+    "price": 279,
+    "images": [
+      "https://placehold.co/1080x1080/ED64A6/2D3748?text=New+Single",
+      "https://placehold.co/1080x1920/D53F8C/2D3748?text=Tour+Dates",
+      "https://placehold.co/1080x1350/B83280/2D3748?text=Listen+Now"
+    ],
+    "zipUrl": "/templates/graphics/template31/download.zip"
+  },
+  {
+    "id": "template32",
+    "name": "Black & White Film",
+    "description": "A timeless collection of 40 black and white templates. Perfect for a classic, cinematic feed. For Canva.",
+    "price": 319,
+    "images": [
+      "https://placehold.co/1080x1080/CCCCCC/000000?text=B%26W+Post",
+      "https://placehold.co/1080x1350/DDDDDD/000000?text=B%26W+Portrait",
+      "https://placehold.co/1080x1920/EEEEEE/000000?text=B%26W+Story"
+    ],
+    "zipUrl": "/templates/graphics/template32/download.zip"
+  },
+  {
+    "id": "template33",
+    "name": "Eco & Sustainable Brand",
+    "description": "A set of 50 templates for green, eco-friendly brands. Earthy tones and natural textures. Works with Canva.",
+    "price": 399,
+    "images": [
+      "https://placehold.co/1080x1080/9AE6B4/2F855A?text=Go+Green",
+      "https://placehold.co/1080x1080/68D391/2F855A?text=Sustainable",
+      "https://placehold.co/1080x1080/48BB78/2F855A?text=Eco-Friendly"
+    ],
+    "zipUrl": "/templates/graphics/template33/download.zip"
+  },
+  {
+    "id": "template34",
+    "name": "Tech & SaaS Pack",
+    "description": "A clean and professional pack of 45 templates for tech startups and SaaS companies. Showcase features and benefits. For Canva.",
+    "price": 379,
+    "images": [
+      "https://placehold.co/1080x1080/63B3ED/1A365D?text=New+Feature",
+      "https://placehold.co/1080x1350/4299E1/1A365D?text=Testimonial",
+      "https://placehold.co/1080x1080/3182CE/1A365D?text=Book+a+Demo"
+    ],
+    "zipUrl": "/templates/graphics/template34/download.zip"
+  },
+  {
+    "id": "template35",
+    "name": "DIY & Crafting Stories",
+    "description": "A collection of 30 fun and creative story templates for DIY bloggers and crafters. Show your process. Editable in Canva.",
+    "price": 229,
+    "images": [
+      "https://placehold.co/1080x1920/F6AD55/9C4221?text=DIY+Project",
+      "https://placehold.co/1080x1920/ED8936/9C4221?text=How+To",
+      "https://placehold.co/1080x1920/DD6B20/9C4221?text=Supplies"
+    ],
+    "zipUrl": "/templates/graphics/template35/download.zip"
+  },
+  {
+    "id": "template36",
+    "name": "Astrology & Zodiac Kit",
+    "description": "A mystical set of 40 templates for astrology lovers. Includes all zodiac signs and celestial designs. Works with Canva.",
+    "price": 339,
+    "images": [
+      "https://placehold.co/1080x1080/2D3748/FBBF24?text=Aries",
+      "https://placehold.co/1080x1080/1A202C/FBBF24?text=Horoscope",
+      "https://placehold.co/1080x1080/4A5568/FBBF24?text=Full+Moon"
+    ],
+    "zipUrl": "/templates/graphics/template36/download.zip"
+  },
+  {
+    "id": "template37",
+    "name": "Pet Influencer Pack",
+    "description": "A cute and playful pack of 30 templates for pet accounts. Show off your furry friend! For Canva.",
+    "price": 249,
+    "images": [
+      "https://placehold.co/1080x1080/FEEBC8/9C4221?text=Cute+Pet",
+      "https://placehold.co/1080x1080/FBD38D/9C4221?text=Pet+Tricks",
+      "https://placehold.co/1080x1080/F6AD55/9C4221?text=Follow+Us"
+    ],
+    "zipUrl": "/templates/graphics/template37/download.zip"
+  },
+  {
+    "id": "template38",
+    "name": "Gamer & Twitch Streamer",
+    "description": "Level up your social media with 35 templates for gamers and streamers. Announce streams and share highlights. Editable in Canva.",
+    "price": 289,
+    "images": [
+      "https://placehold.co/1080x1080/9F7AEA/FFFFFF?text=Live+Now",
+      "https://placehold.co/1280x720/805AD5/FFFFFF?text=New+Video",
+      "https://placehold.co/1080x1080/6B46C1/FFFFFF?text=Follow+on+Twitch"
+    ],
+    "zipUrl": "/templates/graphics/template38/download.zip"
+  },
+  {
+    "id": "template39",
+    "name": "News & Magazine Layout",
+    "description": "A professional set of 50 templates for news outlets and digital magazines. Headline and article formats. For Canva.",
+    "price": 429,
+    "images": [
+      "https://placehold.co/1080x1080/E2E8F0/1A202C?text=Breaking+News",
+      "https://placehold.co/1080x1350/CBD5E0/1A202C?text=In-Depth+Article",
+      "https://placehold.co/1080x1080/A0AEC0/1A202C?text=Top+Story"
+    ],
+    "zipUrl": "/templates/graphics/template39/download.zip"
+  },
+  {
+    "id": "template40",
+    "name": "Interior Design Showcase",
+    "description": "A stylish and elegant pack of 40 templates for interior designers. Showcase your projects and design tips. Editable in Canva.",
+    "price": 369,
+    "images": [
+      "https://placehold.co/1080x1350/EBF8FF/2C5282?text=Portfolio",
+      "https://placehold.co/1080x1350/DCEEFB/2C5282?text=Moodboard",
+      "https://placehold.co/1080x1350/C3DDF9/2C5282?text=Design+Tip"
+    ],
+    "zipUrl": "/templates/graphics/template40/download.zip"
+  },
+  {
+    "id": "template41",
+    "name": "Abstract Art Posts",
+    "description": "A creative set of 25 templates featuring abstract shapes and bold colors. For artists and creative brands on Canva.",
+    "price": 219,
+    "images": [
+      "https://placehold.co/1080x1080/F56565/FFFFFF?text=Abstract+1",
+      "https://placehold.co/1080x1080/ED8936/FFFFFF?text=Abstract+2",
+      "https://placehold.co/1080x1080/48BB78/FFFFFF?text=Abstract+3"
+    ],
+    "zipUrl": "/templates/graphics/template41/download.zip"
+  },
+  {
+    "id": "template42",
+    "name": "Law Firm & Legal Services",
+    "description": "A professional and trustworthy set of 30 templates for lawyers and law firms. Explain services and share insights. For Canva.",
+    "price": 349,
+    "images": [
+      "https://placehold.co/1080x1080/B794F4/2D3748?text=Legal+Tip",
+      "https://placehold.co/1080x1080/9F7AEA/2D3748?text=Our+Services",
+      "https://placehold.co/1080x1080/805AD5/2D3748?text=Contact+Us"
+    ],
+    "zipUrl": "/templates/graphics/template42/download.zip"
+  },
+  {
+    "id": "template43",
+    "name": "Non-Profit & Charity",
+    "description": "A heartfelt collection of 40 templates for non-profits to raise awareness and drive donations. Editable in Canva.",
+    "price": 299,
+    "images": [
+      "https://placehold.co/1080x1080/68D391/1A202C?text=Our+Mission",
+      "https://placehold.co/1080x1920/48BB78/1A202C?text=Donate+Now",
+      "https://placehold.co/1080x1080/38A169/1A202C?text=Volunteer"
+    ],
+    "zipUrl": "/templates/graphics/template43/download.zip"
+  },
+  {
+    "id": "template44",
+    "name": "Gradient & Aura Pack",
+    "description": "A vibrant pack of 50 templates featuring trendy gradients and aura effects. For spiritual and wellness brands on Canva.",
+    "price": 389,
+    "images": [
+      "https://placehold.co/1080x1080/ff00ff/00ffff?text=Aura",
+      "https://placehold.co/1080x1920/00ff00/ffff00?text=Gradient+Story",
+      "https://placehold.co/1080x1350/ffff00/ff00ff?text=Good+Vibes"
+    ],
+    "zipUrl": "/templates/graphics/template44/download.zip"
+  },
+  {
+    "id": "template45",
+    "name": "Barber Shop & Men's Grooming",
+    "description": "A stylish and masculine set of 30 templates for barbershops and men's grooming brands. Editable in Canva.",
+    "price": 269,
+    "images": [
+      "https://placehold.co/1080x1080/718096/FFFFFF?text=Fresh+Cut",
+      "https://placehold.co/1080x1080/4A5568/FFFFFF?text=Book+Now",
+      "https://placehold.co/1080x1080/2D3748/FFFFFF?text=Our+Services"
+    ],
+    "zipUrl": "/templates/graphics/template45/download.zip"
+  },
+  {
+    "id": "template46",
+    "name": "Tattoo Artist Portfolio",
+    "description": "A bold pack of 40 templates for tattoo artists to showcase their work and bookings. Works with Canva.",
+    "price": 329,
+    "images": [
+      "https://placehold.co/1080x1350/1A202C/FFFFFF?text=Fresh+Ink",
+      "https://placehold.co/1080x1080/2D3748/FFFFFF?text=Flash+Sheet",
+      "https://placehold.co/1080x1920/000000/FFFFFF?text=Books+Open"
+    ],
+    "zipUrl": "/templates/graphics/template46/download.zip"
+  },
+  {
+    "id": "template47",
+    "name": "Florist & Botanical Shop",
+    "description": "A beautiful and delicate set of 35 templates for florists and plant shops. Editable in Canva.",
+    "price": 299,
+    "images": [
+      "https://placehold.co/1080x1350/C6F6D5/22543D?text=Bouquet",
+      "https://placehold.co/1080x1080/9AE6B4/22543D?text=New+Plants",
+      "https://placehold.co/1080x1920/B2F5EA/22543D?text=Plant+Care"
+    ],
+    "zipUrl": "/templates/graphics/template47/download.zip"
+  },
+  {
+    "id": "template48",
+    "name": "Cinematic Film Frames",
+    "description": "A pack of 30 templates that give your posts a cinematic, widescreen look. Perfect for storytellers. For Canva.",
+    "price": 259,
+    "images": [
+      "https://placehold.co/1080x1350/F6E05E/2D3748?text=Film+Frame+1",
+      "https://placehold.co/1080x1350/FBBF24/2D3748?text=Film+Frame+2",
+      "https://placehold.co/1080x1350/F59E0B/2D3748?text=Film+Frame+3"
+    ],
+    "zipUrl": "/templates/graphics/template48/download.zip"
+  },
+  {
+    "id": "template49",
+    "name": "Wedding Planner Pro Kit",
+    "description": "An all-in-one kit of 75 templates for wedding planners. Timelines, vendor lists, and client portals. Works with Canva.",
+    "price": 549,
+    "images": [
+      "https://placehold.co/1080x1080/F3E8FF/6B46C1?text=Checklist",
+      "https://placehold.co/1080x1920/E9D8FD/6B46C1?text=Timeline",
+      "https://placehold.co/1080x1350/D6BCFA/6B46C1?text=Vendor+Love"
+    ],
+    "zipUrl": "/templates/graphics/template49/download.zip"
+  },
+  {
+    "id": "template50",
+    "name": "Brutalism & Anti-Design",
+    "description": "A raw, edgy pack of 25 templates inspired by brutalist web design. For the bold and unconventional. Editable in Canva.",
+    "price": 239,
+    "images": [
+      "https://placehold.co/1080x1080/0000FF/FFFFFF?text=BRUTAL",
+      "https://placehold.co/1080x1080/FF0000/000000?text=DESIGN",
+      "https://placehold.co/1080x1080/00FF00/0000FF?text=SYSTEM"
+    ],
+    "zipUrl": "/templates/graphics/template50/download.zip"
+  },
+  {
+    "id": "template51",
+    "name": "Minimalist Photo Frames",
+    "description": "A simple and elegant set of 40 templates to frame your photography. Various layouts included. Editable in Canva.",
+    "price": 299,
+    "images": [
+      "https://placehold.co/1080x1350/FAFAFA/333333?text=Frame+1",
+      "https://placehold.co/1080x1350/F5F5F5/333333?text=Frame+2",
+      "https://placehold.co/1080x1350/F0F0F0/333333?text=Frame+3"
+    ],
+    "zipUrl": "/templates/graphics/template51/download.zip"
+  },
+  {
+    "id": "template52",
+    "name": "Vintage Scrapbook Kit",
+    "description": "A nostalgic collection of 50 scrapbook-style templates. Paper textures, polaroids, and handwritten notes. For Canva.",
+    "price": 379,
+    "images": [
+      "https://placehold.co/1080x1080/FDF5E6/A0522D?text=Memory",
+      "https://placehold.co/1080x1080/FAEBD7/A0522D?text=Scrapbook",
+      "https://placehold.co/1080x1080/FFF8DC/A0522D?text=Journal"
+    ],
+    "zipUrl": "/templates/graphics/template52/download.zip"
+  },
+  {
+    "id": "template53",
+    "name": "Beauty Blogger Stories",
+    "description": "A vibrant set of 60 story templates for beauty bloggers. Includes polls, quizzes, and tutorials. Works with Canva.",
+    "price": 429,
+    "images": [
+      "https://placehold.co/1080x1920/FF69B4/FFFFFF?text=GRWM",
+      "https://placehold.co/1080x1920/FF1493/FFFFFF?text=Q%26A",
+      "https://placehold.co/1080x1920/DB7093/FFFFFF?text=New+Look"
+    ],
+    "zipUrl": "/templates/graphics/template53/download.zip"
+  },
+  {
+    "id": "template54",
+    "name": "Financial Advisor Pack",
+    "description": "A professional set of 40 templates for financial advisors. Build trust and share valuable insights. Editable in Canva.",
+    "price": 399,
+    "images": [
+      "https://placehold.co/1080x1080/2C5282/FFFFFF?text=Market+Update",
+      "https://placehold.co/1080x1080/2B6CB0/FFFFFF?text=Wealth+Tip",
+      "https://placehold.co/1080x1080/2A4365/FFFFFF?text=Plan+Your+Future"
+    ],
+    "zipUrl": "/templates/graphics/template54/download.zip"
+  },
+  {
+    "id": "template55",
+    "name": "Hand-Drawn Doodle Kit",
+    "description": "A playful collection of 50 templates featuring hand-drawn doodles and illustrations. For a personal touch. For Canva.",
+    "price": 349,
+    "images": [
+      "https://placehold.co/1080x1080/FFFACD/FF4500?text=Doodle+1",
+      "https://placehold.co/1080x1080/FFF8DC/FF4500?text=Doodle+2",
+      "https://placehold.co/1080x1080/FFFFE0/FF4500?text=Doodle+3"
+    ],
+    "zipUrl": "/templates/graphics/template55/download.zip"
+  },
+  {
+    "id": "template56",
+    "name": "Psychologist & Therapist",
+    "description": "A calm and supportive set of 35 templates for mental health professionals. Share resources and insights. Works with Canva.",
+    "price": 329,
+    "images": [
+      "https://placehold.co/1080x1080/BEE3F8/2C5282?text=Mental+Health",
+      "https://placehold.co/1080x1080/90CDF4/2C5282?text=Self-Care+Tip",
+      "https://placehold.co/1080x1080/63B3ED/2C5282?text=Book+a+Session"
+    ],
+    "zipUrl": "/templates/graphics/template56/download.zip"
+  },
+  {
+    "id": "template57",
+    "name": "Podcast Guest Promo",
+    "description": "A handy set of 20 templates to promote your podcast guests. Easy to customize with their photo and bio. For Canva.",
+    "price": 199,
+    "images": [
+      "https://placehold.co/1080x1080/D6BCFA/44337A?text=Guest+Alert",
+      "https://placehold.co/1080x1080/B794F4/44337A?text=Featuring",
+      "https://placehold.co/1080x1080/9F7AEA/44337A?text=This+Week"
+    ],
+    "zipUrl": "/templates/graphics/template57/download.zip"
+  },
+  {
+    "id": "template58",
+    "name": "Modern Art Gallery",
+    "description": "A sophisticated set of 30 templates for art galleries and museums to showcase exhibitions and artists. Editable in Canva.",
+    "price": 319,
+    "images": [
+      "https://placehold.co/1080x1350/E2E8F0/1A202C?text=Exhibition",
+      "https://placehold.co/1080x1350/CBD5E0/1A202C?text=Artist+Spotlight",
+      "https://placehold.co/1080x1350/A0AEC0/1A202C?text=Visit+Us"
+    ],
+    "zipUrl": "/templates/graphics/template58/download.zip"
+  },
+  {
+    "id": "template59",
+    "name": "Dentist & Orthodontist",
+    "description": "A clean and friendly set of 35 templates for dental practices. Share tips, testimonials, and offers. Works with Canva.",
+    "price": 299,
+    "images": [
+      "https://placehold.co/1080x1080/B2F5EA/047481?text=Healthy+Smile",
+      "https://placehold.co/1080x1080/81E6D9/047481?text=Dental+Tip",
+      "https://placehold.co/1080x1080/4FD1C5/047481?text=Book+Appointment"
+    ],
+    "zipUrl": "/templates/graphics/template59/download.zip"
+  },
+  {
+    "id": "template60",
+    "name": "Author Book Launch",
+    "description": "A comprehensive kit of 50 templates for launching your new book. Teasers, countdowns, and reviews. For Canva.",
+    "price": 449,
+    "images": [
+      "https://placehold.co/1080x1080/FED7E2/702459?text=Cover+Reveal",
+      "https://placehold.co/1080x1080/FBB6CE/702459?text=Pre-Order+Now",
+      "https://placehold.co/1080x1080/F687B3/702459?text=Review"
+    ],
+    "zipUrl": "/templates/graphics/template60/download.zip"
+  },
+  {
+    "id": "template61",
+    "name": "Cyberpunk Glitch",
+    "description": "A futuristic pack of 30 templates with a cyberpunk and glitch aesthetic. For tech and gaming brands on Canva.",
+    "price": 279,
+    "images": [
+      "https://placehold.co/1080x1080/00FFFF/000000?text=CYBER",
+      "https://placehold.co/1080x1080/FF00FF/000000?text=PUNK",
+      "https://placehold.co/1080x1080/FFFF00/000000?text=GLITCH"
+    ],
+    "zipUrl": "/templates/graphics/template61/download.zip"
+  },
+  {
+    "id": "template62",
+    "name": "Virtual Assistant Services",
+    "description": "A professional set of 40 templates for Virtual Assistants to promote their services and testimonials. Editable in Canva.",
+    "price": 339,
+    "images": [
+      "https://placehold.co/1080x1080/D6BCFA/553C9A?text=My+Services",
+      "https://placehold.co/1080x1080/B794F4/553C9A?text=Client+Love",
+      "https://placehold.co/1080x1080/9F7AEA/553C9A?text=Hire+Me"
+    ],
+    "zipUrl": "/templates/graphics/template62/download.zip"
+  },
+  {
+    "id": "template63",
+    "name": "Sustainable Fashion",
+    "description": "A chic and earthy set of 35 templates for sustainable fashion brands. Highlight your materials and ethics. For Canva.",
+    "price": 319,
+    "images": [
+      "https://placehold.co/1080x1350/C6F6D5/2F855A?text=Ethical",
+      "https://placehold.co/1080x1350/9AE6B4/2F855A?text=Sustainable",
+      "https://placehold.co/1080x1350/68D391/2F855A?text=Fashion"
+    ],
+    "zipUrl": "/templates/graphics/template63/download.zip"
+  },
+  {
+    "id": "template64",
+    "name": "Online Course Creator",
+    "description": "A huge kit of 80 templates to create and promote your online course. Module covers, workbooks, and promos. Works with Canva.",
+    "price": 599,
+    "images": [
+      "https://placehold.co/1080x1080/90CDF4/2C5282?text=New+Course",
+      "https://placehold.co/1920x1080/63B3ED/2C5282?text=Module+1",
+      "https://placehold.co/1080x1080/4299E1/2C5282?text=Enroll+Now"
+    ],
+    "zipUrl": "/templates/graphics/template64/download.zip"
+  },
+  {
+    "id": "template65",
+    "name": "Carpenter & Woodworker",
+    "description": "A rustic set of 30 templates for carpenters and woodworking businesses. Showcase your craftsmanship. For Canva.",
+    "price": 289,
+    "images": [
+      "https://placehold.co/1080x1080/D2B48C/5C4033?text=Handcrafted",
+      "https://placehold.co/1080x1350/BC8F8F/5C4033?text=Custom+Work",
+      "https://placehold.co/1080x1080/CD853F/5C4033?text=Get+a+Quote"
+    ],
+    "zipUrl": "/templates/graphics/template65/download.zip"
+  },
+  {
+    "id": "template66",
+    "name": "Christian & Church Events",
+    "description": "A welcoming set of 40 templates for churches and faith-based organizations. Announce services and events. Editable in Canva.",
+    "price": 329,
+    "images": [
+      "https://placehold.co/1080x1080/F0E68C/8B4513?text=Sermon",
+      "https://placehold.co/1080x1080/F5DEB3/8B4513?text=Join+Us+Sunday",
+      "https://placehold.co/1080x1080/FFE4B5/8B4513?text=Verse+of+the+Day"
+    ],
+    "zipUrl": "/templates/graphics/template66/download.zip"
+  },
+  {
+    "id": "template67",
+    "name": "Gardening & Landscaping",
+    "description": "A green and vibrant set of 35 templates for gardening services and plant lovers. Share tips and showcase projects. For Canva.",
+    "price": 309,
+    "images": [
+      "https://placehold.co/1080x1080/38A169/FFFFFF?text=Garden+Tip",
+      "https://placehold.co/1080x1350/48BB78/FFFFFF?text=Transformation",
+      "https://placehold.co/1080x1080/68D391/FFFFFF?text=Our+Services"
+    ],
+    "zipUrl": "/templates/graphics/template67/download.zip"
+  },
+  {
+    "id": "template68",
+    "name": "Makeup Artist (MUA) Kit",
+    "description": "A glamorous set of 50 templates for makeup artists. Showcase your looks, tutorials, and services. Works with Canva.",
+    "price": 419,
+    "images": [
+      "https://placehold.co/1080x1350/ED64A6/2D3748?text=Client+Look",
+      "https://placehold.co/1080x1920/D53F8C/2D3748?text=Tutorial",
+      "https://placehold.co/1080x1080/B83280/2D3748?text=Book+Me"
+    ],
+    "zipUrl": "/templates/graphics/template68/download.zip"
+  },
+  {
+    "id": "template69",
+    "name": "DJ & Nightclub Promo",
+    "description": "An energetic pack of 30 templates for DJs and nightclubs. Promote your events and mixes. Editable in Canva.",
+    "price": 299,
+    "images": [
+      "https://placehold.co/1080x1080/7B341E/FBBF24?text=Tonight's+DJ",
+      "https://placehold.co/1080x1350/9C4221/FBBF24?text=Event+Flyer",
+      "https://placehold.co/1080x1080/C05621/FBBF24?text=Guest+List"
+    ],
+    "zipUrl": "/templates/graphics/template69/download.zip"
+  },
+  {
+    "id": "template70",
+    "name": "Coffee Shop & Cafe",
+    "description": "A cozy and warm set of 40 templates for coffee shops. Showcase your drinks and cozy atmosphere. For Canva.",
+    "price": 339,
+    "images": [
+      "https://placehold.co/1080x1080/654321/FFFFFF?text=Coffee+of+the+Day",
+      "https://placehold.co/1080x1080/8B4513/FFFFFF?text=Our+Pastries",
+      "https://placehold.co/1080x1080/A0522D/FFFFFF?text=Come+On+In"
+    ],
+    "zipUrl": "/templates/graphics/template70/download.zip"
+  },
+  {
+    "id": "template71",
+    "name": "Data & Analytics Viz",
+    "description": "A clean and modern set of 45 templates for presenting data. Charts, graphs, and infographics galore. Editable in Canva.",
+    "price": 399,
+    "images": [
+      "https://placehold.co/1080x1080/3182CE/FFFFFF?text=Data+Point",
+      "https://placehold.co/1080x1080/4299E1/FFFFFF?text=Key+Insight",
+      "https://placehold.co/1080x1080/63B3ED/FFFFFF?text=Dashboard"
+    ],
+    "zipUrl": "/templates/graphics/template71/download.zip"
+  },
+  {
+    "id": "template72",
+    "name": "Home Organizer & Declutter",
+    "description": "A neat and tidy set of 30 templates for home organization professionals. Before & afters and tips. Works with Canva.",
+    "price": 289,
+    "images": [
+      "https://placehold.co/1080x1350/EBF8FF/2C5282?text=Before+%26+After",
+      "https://placehold.co/1080x1080/EBF8FF/2C5282?text=Organizing+Tip",
+      "https://placehold.co/1080x1080/EBF8FF/2C5282?text=Get+Organized"
+    ],
+    "zipUrl": "/templates/graphics/template72/download.zip"
+  },
+  {
+    "id": "template73",
+    "name": "Poetry & Prose Layouts",
+    "description": "A beautiful and minimalist set of 40 templates designed to showcase poetry and written work. For Canva.",
+    "price": 319,
+    "images": [
+      "https://placehold.co/1080x1350/F7FAFC/2D3748?text=Poem",
+      "https://placehold.co/1080x1350/EDF2F7/2D3748?text=Excerpt",
+      "https://placehold.co/1080x1350/E2E8F0/2D3748?text=By+the+Author"
+    ],
+    "zipUrl": "/templates/graphics/template73/download.zip"
+  },
+  {
+    "id": "template74",
+    "name": "Car Detailing & Auto",
+    "description": "A sleek and professional set of 30 templates for car detailing businesses. Showcase your work and services. Editable in Canva.",
+    "price": 299,
+    "images": [
+      "https://placehold.co/1080x1080/2D3748/F6E05E?text=Glossy+Finish",
+      "https://placehold.co/1080x1080/1A202C/F6E05E?text=Our+Packages",
+      "https://placehold.co/1080x1080/4A5568/F6E05E?text=Book+Your+Detail"
+    ],
+    "zipUrl": "/templates/graphics/template74/download.zip"
+  },
+  {
+    "id": "template75",
+    "name": "Nail Artist & Salon",
+    "description": "A chic and stylish set of 35 templates for nail artists and salons. Showcase your nail art and availability. For Canva.",
+    "price": 309,
+    "images": [
+      "https://placehold.co/1080x1080/FBB6CE/880E4F?text=Nail+Art",
+      "https://placehold.co/1080x1080/F687B3/880E4F?text=Fresh+Set",
+      "https://placehold.co/1080x1080/F472B6/880E4F?text=Bookings"
+    ],
+    "zipUrl": "/templates/graphics/template75/download.zip"
+  },
+  {
+    "id": "template76",
+    "name": "Life Coach Pro Bundle",
+    "description": "An empowering bundle of 60 templates for life coaches. Worksheets, prompts, and promotional posts. Works with Canva.",
+    "price": 499,
+    "images": [
+      "https://placehold.co/1080x1080/9AE6B4/276749?text=Your+Goal",
+      "https://placehold.co/1080x1350/B2F5EA/276749?text=Journal+Prompt",
+      "https://placehold.co/1080x1080/C6F6D5/276749?text=Transform"
+    ],
+    "zipUrl": "/templates/graphics/template76/download.zip"
+  },
+  {
+    "id": "template77",
+    "name": "Stand-up Comedian Set",
+    "description": "A fun and bold set of 25 templates for comedians to promote shows and share clips. Editable in Canva.",
+    "price": 249,
+    "images": [
+      "https://placehold.co/1080x1080/F6E05E/1A202C?text=Show+Dates",
+      "https://placehold.co/1080x1080/FBBF24/1A202C?text=New+Joke",
+      "https://placehold.co/1080x1080/F59E0B/1A202C?text=Buy+Tickets"
+    ],
+    "zipUrl": "/templates/graphics/template77/download.zip"
+  },
+  {
+    "id": "template78",
+    "name": "Film & Video Production",
+    "description": "A professional set of 40 templates for videographers and production companies. Showcase your portfolio. For Canva.",
+    "price": 359,
+    "images": [
+      "https://placehold.co/1920x1080/1A202C/FFFFFF?text=Our+Work",
+      "https://placehold.co/1080x1350/2D3748/FFFFFF?text=Behind+the+Scenes",
+      "https://placehold.co/1080x1080/4A5568/FFFFFF?text=Hire+Us"
+    ],
+    "zipUrl": "/templates/graphics/template78/download.zip"
+  },
+  {
+    "id": "template79",
+    "name": "Language Tutor & Teacher",
+    "description": "An engaging set of 50 templates for language tutors. Quizzes, vocabulary, and cultural tips. Works with Canva.",
+    "price": 419,
+    "images": [
+      "https://placehold.co/1080x1080/BEE3F8/2B6CB0?text=Word+of+the+Day",
+      "https://placehold.co/1080x1080/90CDF4/2B6CB0?text=Learn+a+Phrase",
+      "https://placehold.co/1080x1080/63B3ED/2B6CB0?text=Book+a+Lesson"
+    ],
+    "zipUrl": "/templates/graphics/template79/download.zip"
+  },
+  {
+    "id": "template80",
+    "name": "Political Campaign Pack",
+    "description": "A comprehensive set of 60 templates for political campaigns. Events, endorsements, and get out the vote. For Canva.",
+    "price": 499,
+    "images": [
+      "https://placehold.co/1080x1080/BF0A30/FFFFFF?text=Vote+For",
+      "https://placehold.co/1080x1080/002868/FFFFFF?text=Rally",
+      "https://placehold.co/1080x1080/FFFFFF/000000?text=Endorsement"
+    ],
+    "zipUrl": "/templates/graphics/template80/download.zip"
+  },
+  {
+    "id": "template81",
+    "name": "Nutritionist & Dietitian",
+    "description": "A fresh and healthy set of 45 templates for nutrition professionals. Meal plans, healthy recipes, and tips. Editable in Canva.",
+    "price": 389,
+    "images": [
+      "https://placehold.co/1080x1080/68D391/22543D?text=Healthy+Recipe",
+      "https://placehold.co/1080x1350/48BB78/22543D?text=Meal+Prep",
+      "https://placehold.co/1080x1080/38A169/22543D?text=Fact+vs+Myth"
+    ],
+    "zipUrl": "/templates/graphics/template81/download.zip"
+  },
+  {
+    "id": "template82",
+    "name": "Calligraphy & Lettering",
+    "description": "An elegant set of 30 templates for calligraphers to showcase their art and services. For Canva.",
+    "price": 299,
+    "images": [
+      "https://placehold.co/1080x1350/F7FAFC/2D3748?text=Calligraphy",
+      "https://placehold.co/1080x1350/EDF2F7/2D3748?text=Lettering",
+      "https://placehold.co/1080x1350/E2E8F0/2D3748?text=Custom+Orders"
+    ],
+    "zipUrl": "/templates/graphics/template82/download.zip"
+  },
+  {
+    "id": "template83",
+    "name": "Chiropractor & Physio",
+    "description": "A professional set of 35 templates for chiropractors and physiotherapists. Educational content and testimonials. Works with Canva.",
+    "price": 329,
+    "images": [
+      "https://placehold.co/1080x1080/63B3ED/1A365D?text=Pain+Relief",
+      "https://placehold.co/1080x1080/4299E1/1A365D?text=Wellness+Tip",
+      "https://placehold.co/1080x1080/3182CE/1A365D?text=Book+an+Adjustment"
+    ],
+    "zipUrl": "/templates/graphics/template83/download.zip"
+  },
+  {
+    "id": "template84",
+    "name": "Bakery & Sweet Shop",
+    "description": "A delicious set of 40 templates for bakeries and confectioners. Showcase your treats and take orders. For Canva.",
+    "price": 349,
+    "images": [
+      "https://placehold.co/1080x1080/FBB6CE/880E4F?text=Freshly+Baked",
+      "https://placehold.co/1080x1080/F687B3/880E4F?text=Cake+of+the+Day",
+      "https://placehold.co/1080x1080/ED64A6/880E4F?text=Order+Now"
+    ],
+    "zipUrl": "/templates/graphics/template84/download.zip"
+  },
+  {
+    "id": "template85",
+    "name": "Cleaning Service Pro",
+    "description": "A clean and sparkling set of 30 templates for cleaning service businesses. Checklists, testimonials, and offers. Editable in Canva.",
+    "price": 289,
+    "images": [
+      "https://placehold.co/1080x1080/90CDF4/1A365D?text=Sparkling+Clean",
+      "https://placehold.co/1080x1080/63B3ED/1A365D?text=Our+Services",
+      "https://placehold.co/1080x1080/4299E1/1A365D?text=Get+a+Free+Quote"
+    ],
+    "zipUrl": "/templates/graphics/template85/download.zip"
+  },
+  {
+    "id": "template86",
+    "name": "Tutor & Academic Coach",
+    "description": "An educational set of 40 templates for tutors and academic coaches. Study tips, subject help, and testimonials. Works with Canva.",
+    "price": 359,
+    "images": [
+      "https://placehold.co/1080x1080/F6E05E/2D3748?text=Study+Tip",
+      "https://placehold.co/1080x1080/FBBF24/2D3748?text=Math+Help",
+      "https://placehold.co/1080x1080/F59E0B/2D3748?text=Book+a+Session"
+    ],
+    "zipUrl": "/templates/graphics/template86/download.zip"
+  },
+  {
+    "id": "template87",
+    "name": "Event Planner Portfolio",
+    "description": "A sophisticated set of 50 templates for event planners to showcase their beautiful events. For Canva.",
+    "price": 439,
+    "images": [
+      "https://placehold.co/1080x1350/D6BCFA/44337A?text=Event+Showcase",
+      "https://placehold.co/1080x1080/B794F4/44337A?text=Client+Rave",
+      "https://placehold.co/1080x1920/9F7AEA/44337A?text=Let's+Plan"
+    ],
+    "zipUrl": "/templates/graphics/template87/download.zip"
+  },
+  {
+    "id": "template88",
+    "name": "Soap & Candle Making",
+    "description": "A cozy and rustic set of 30 templates for soap and candle makers. Showcase your products and process. Editable in Canva.",
+    "price": 299,
+    "images": [
+      "https://placehold.co/1080x1080/FDF5E6/A0522D?text=Handmade+Soap",
+      "https://placehold.co/1080x1080/FAEBD7/A0522D?text=Scented+Candles",
+      "https://placehold.co/1080x1080/FFF8DC/A0522D?text=Shop+Now"
+    ],
+    "zipUrl": "/templates/graphics/template88/download.zip"
+  },
+  {
+    "id": "template89",
+    "name": "Plumber & HVAC Services",
+    "description": "A reliable and professional set of 25 templates for plumbers and HVAC technicians. Service calls, tips, and emergencies. For Canva.",
+    "price": 279,
+    "images": [
+      "https://placehold.co/1080x1080/2B6CB0/FFFFFF?text=Need+a+Plumber?",
+      "https://placehold.co/1080x1080/2C5282/FFFFFF?text=HVAC+Tip",
+      "https://placehold.co/1080x1080/2A4365/FFFFFF?text=24/7+Service"
+    ],
+    "zipUrl": "/templates/graphics/template89/download.zip"
+  },
+  {
+    "id": "template90",
+    "name": "Personal Stylist & Shopper",
+    "description": "A fashionable set of 40 templates for personal stylists. Style tips, lookbooks, and client transformations. Works with Canva.",
+    "price": 379,
+    "images": [
+      "https://placehold.co/1080x1350/E2E8F0/1A202C?text=Lookbook",
+      "https://placehold.co/1080x1080/CBD5E0/1A202C?text=Style+Tip",
+      "https://placehold.co/1080x1350/A0AEC0/1A202C?text=Client+Style"
+    ],
+    "zipUrl": "/templates/graphics/template90/download.zip"
+  },
+  {
+    "id": "template91",
+    "name": "Social Media Manager Kit",
+    "description": "The ultimate kit of 75 templates for Social Media Managers. Proposals, reports, and content calendars. Editable in Canva.",
+    "price": 589,
+    "images": [
+      "https://placehold.co/1080x1080/9F7AEA/FFFFFF?text=Analytics",
+      "https://placehold.co/2200x1700/805AD5/FFFFFF?text=Proposal",
+      "https://placehold.co/1080x1080/6B46C1/FFFFFF?text=Content+Plan"
+    ],
+    "zipUrl": "/templates/graphics/template91/download.zip"
+  },
+  {
+    "id": "template92",
+    "name": "Pottery & Ceramics Studio",
+    "description": "An earthy and artistic set of 30 templates for pottery studios. Class schedules, artist work, and workshops. For Canva.",
+    "price": 299,
+    "images": [
+      "https://placehold.co/1080x1080/D2B48C/5C4033?text=Pottery+Class",
+      "https://placehold.co/1080x1350/BC8F8F/5C4033?text=Studio+Work",
+      "https://placehold.co/1080x1080/CD853F/5C4033?text=Join+a+Workshop"
+    ],
+    "zipUrl": "/templates/graphics/template92/download.zip"
+  },
+  {
+    "id": "template93",
+    "name": "Book Club & Reading Group",
+    "description": "A cozy set of 25 templates for book clubs. Announce the book of the month, discussion questions, and meeting times. For Canva.",
+    "price": 249,
+    "images": [
+      "https://placehold.co/1080x1080/FDF5E6/A0522D?text=Book+of+the+Month",
+      "https://placehold.co/1080x1080/FAEBD7/A0522D?text=Discussion",
+      "https://placehold.co/1080x1080/FFF8DC/A0522D?text=Join+Our+Club"
+    ],
+    "zipUrl": "/templates/graphics/template93/download.zip"
+  },
+  {
+    "id": "template94",
+    "name": "UX/UI Designer Portfolio",
+    "description": "A clean and professional set of 40 templates for UX/UI designers to showcase their case studies and process. Works with Canva.",
+    "price": 389,
+    "images": [
+      "https://placehold.co/1080x1350/EBF8FF/2C5282?text=Case+Study",
+      "https://placehold.co/1080x1080/C3DDF9/2C5282?text=My+Process",
+      "https://placehold.co/1080x1920/90CDF4/2C5282?text=Let's+Connect"
+    ],
+    "zipUrl": "/templates/graphics/template94/download.zip"
+  },
+  {
+    "id": "template95",
+    "name": "Electrician Services",
+    "description": "A bright and professional set of 25 templates for electricians. Safety tips, services, and emergency calls. For Canva.",
+    "price": 279,
+    "images": [
+      "https://placehold.co/1080x1080/FBBF24/1A202C?text=Need+an+Electrician?",
+      "https://placehold.co/1080x1080/F6E05E/1A202C?text=Safety+Tip",
+      "https://placehold.co/1080x1080/F59E0B/1A202C?text=Call+Now"
+    ],
+    "zipUrl": "/templates/graphics/template95/download.zip"
+  },
+  {
+    "id": "template96",
+    "name": "Doula & Birth Worker",
+    "description": "A gentle and supportive set of 35 templates for doulas and birth workers. Affirmations, services, and testimonials. Editable in Canva.",
+    "price": 329,
+    "images": [
+      "https://placehold.co/1080x1350/FEEBC8/9C4221?text=Birth+Affirmation",
+      "https://placehold.co/1080x1080/FBD38D/9C4221?text=My+Services",
+      "https://placehold.co/1080x1080/F6AD55/9C4221?text=Client+Story"
+    ],
+    "zipUrl": "/templates/graphics/template96/download.zip"
+  },
+  {
+    "id": "template97",
+    "name": "Mechanic & Auto Repair",
+    "description": "A reliable set of 30 templates for auto repair shops. Service reminders, special offers, and car care tips. Works with Canva.",
+    "price": 289,
+    "images": [
+      "https://placehold.co/1080x1080/718096/FFFFFF?text=Oil+Change",
+      "https://placehold.co/1080x1080/4A5568/FFFFFF?text=Car+Care+Tip",
+      "https://placehold.co/1080x1080/2D3748/FFFFFF?text=Schedule+Service"
+    ],
+    "zipUrl": "/templates/graphics/template97/download.zip"
+  },
+  {
+    "id": "template98",
+    "name": "Acupuncturist & TCM",
+    "description": "A calm and balanced set of 35 templates for acupuncturists and Traditional Chinese Medicine practitioners. For Canva.",
+    "price": 339,
+    "images": [
+      "https://placehold.co/1080x1080/C6F6D5/2F855A?text=Acupuncture",
+      "https://placehold.co/1080x1080/9AE6B4/2F855A?text=Find+Balance",
+      "https://placehold.co/1080x1080/68D391/2F855A?text=Book+a+Treatment"
+    ],
+    "zipUrl": "/templates/graphics/template98/download.zip"
+  },
+  {
+    "id": "template99",
+    "name": "Home Bakery Business",
+    "description": "A sweet and charming set of 40 templates for home bakers. Announce your bakes, take custom orders, and share your passion. Editable in Canva.",
+    "price": 349,
+    "images": [
+      "https://placehold.co/1080x1080/FBB6CE/9B2C2C?text=Bake+Sale",
+      "https://placehold.co/1080x1080/FED7E2/9B2C2C?text=Custom+Orders",
+      "https://placehold.co/1080x1080/F687B3/9B2C2C?text=Made+with+Love"
+    ],
+    "zipUrl": "/templates/graphics/template99/download.zip"
+  },
+  {
+    "id": "template100",
+    "name": "Copywriter & Content Pro",
+    "description": "A sharp and witty set of 50 templates for copywriters. Showcase your portfolio, share writing tips, and attract clients. For Canva.",
+    "price": 429,
+    "images": [
+      "https://placehold.co/1080x1080/E2E8F0/1A202C?text=Got+Words?",
+      "https://placehold.co/1080x1080/CBD5E0/1A202C?text=Writing+Tip",
+      "https://placehold.co/1080x1080/A0AEC0/1A202C?text=Let's+Work+Together"
+    ],
+    "zipUrl": "/templates/graphics/template100/download.zip"
+  }
+]
