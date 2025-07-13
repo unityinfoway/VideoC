@@ -15,6 +15,8 @@ import Footer from "../components/Footer";
 import HeroBackground from '../components/HeroBackground';
 import PricingSection from "../components/PricingSection";
 import templateData from "../data/templateData.json";
+import useScrollToHash from "../hooks/useScrollToHash";
+
 
 // --- ICONS ---
 const CheckCircleIcon = (props) => (
@@ -88,6 +90,52 @@ const Logo = (props) => (
   </svg>
 );
 
+// --- New DealTimer Component ---
+const DealTimer = () => {
+  const [timeLeft, setTimeLeft] = useState({
+    hours: 2,
+    minutes: 30,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        const { hours, minutes, seconds } = prevTime;
+        if (hours === 0 && minutes === 0 && seconds === 0) {
+          clearInterval(timer);
+          return prevTime;
+        }
+        if (seconds > 0) {
+          return { ...prevTime, seconds: seconds - 1 };
+        }
+        if (minutes > 0) {
+          return { ...prevTime, minutes: minutes - 1, seconds: 59 };
+        }
+        if (hours > 0) {
+          return { hours: hours - 1, minutes: 59, seconds: 59 };
+        }
+        return prevTime;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div className="deal-timer-container">
+      <p>
+        🔥 Limited time deal! Ends in:{" "}
+        <span className="timer">
+          {String(timeLeft.hours).padStart(2, "0")}:
+          {String(timeLeft.minutes).padStart(2, "0")}:
+          {String(timeLeft.seconds).padStart(2, "0")}
+        </span>
+      </p>
+    </div>
+  );
+};
+
 const HeroCodeBlock = () => {
   const cardRef = useRef(null);
 
@@ -122,18 +170,18 @@ const HeroCodeBlock = () => {
         <pre className="text-xs text-emerald-300">
           <code className="animate-pulse">
             {`const Vyapaara = () => {
-    const assets = [
-    "Figma UI Kits",
-    "After Effects Templates",
-    "Canva Pro Accounts",
-    "Social Growth Services"
-    ];
+  const assets = [
+  "Figma UI Kits",
+  "After Effects Templates",
+  "Canva Pro Accounts",
+  "Social Growth Services"
+  ];
 
-    return (
-    <Marketplace>
-        {assets.map(asset => <ProductCard name={asset} />)}
-    </Marketplace>
-    )
+  return (
+  <Marketplace>
+      {assets.map(asset => <ProductCard name={asset} />)}
+  </Marketplace>
+  )
 }`}
           </code>
         </pre>
@@ -142,55 +190,6 @@ const HeroCodeBlock = () => {
   );
 };
 
-// --- Naya In-built Navbar Component ---
-const HomePageNavbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  return (
-    <header
-      className={`sticky top-0 z-20 w-full transition-colors duration-300 ${
-        isScrolled
-          ? "bg-slate-950/80 backdrop-blur-sm border-b border-slate-800"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Left Side: Logo */}
-          <div className="flex items-center gap-2">
-            <Link to="/home" className="flex items-center gap-2">
-              <Logo />
-              <h1 className="text-xl font-bold text-white">Vyapaara</h1>
-            </Link>
-          </div>
-
-          {/* Right Side: New "Explore Assets" style Login Button */}
-          <div className="flex items-center">
-            <Link
-              to="/" // Login page ka route
-              className="inline-flex items-center justify-center px-6 py-2.5 
-                            bg-indigo-600 text-white font-semibold rounded-lg 
-                            shadow-lg shadow-indigo-500/40 
-                            transition-all duration-300 ease-in-out 
-                            hover:bg-indigo-500 hover:shadow-xl hover:shadow-indigo-500/50 
-                            transform hover:-translate-y-1"
-            >
-              Login
-            </Link>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-};
 
 // --- Infinite Scroller Component ---
 const InfiniteScroller = ({ children, direction = "rtl" }) => {
@@ -212,7 +211,10 @@ const AnimatedSection = ({ children }) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsVisible(entry.isIntersecting);
+        if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+        }
       },
       { threshold: 0.1 }
     );
@@ -245,7 +247,7 @@ const AnimatedSection = ({ children }) => {
 const CountingNumber = ({ targetNumber, duration = 2000 }) => {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
-  const [hasAnimated, setHasAnimated] = useState(false); // To ensure it animates only once
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -253,7 +255,7 @@ const CountingNumber = ({ targetNumber, duration = 2000 }) => {
         if (entry.isIntersecting && !hasAnimated) {
           setHasAnimated(true);
           let start = 0;
-          const increment = targetNumber / (duration / 16); // Roughly 60 frames per second
+          const increment = targetNumber / (duration / 16);
           const timer = setInterval(() => {
             start += increment;
             if (start < targetNumber) {
@@ -262,7 +264,7 @@ const CountingNumber = ({ targetNumber, duration = 2000 }) => {
               setCount(targetNumber);
               clearInterval(timer);
             }
-          }, 16); // Approximately 60 FPS
+          }, 16);
 
           return () => clearInterval(timer);
         }
@@ -290,16 +292,86 @@ const CountingNumber = ({ targetNumber, duration = 2000 }) => {
   );
 };
 
+// --- NEW COMPONENT TO SHOW CURRENT PLAN STATUS ---
+const CurrentPlanStatus = ({ expiryDate }) => {
+    if (!expiryDate) {
+        return null; // Don't render if expiry date is not available
+    }
+    const formattedDate = new Date(expiryDate).toLocaleDateString('en-IN', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+
+    return (
+        <section id="pricing" className="px-4 py-16">
+            <div className="max-w-screen-md mx-auto text-center">
+                <div className="p-8 rounded-2xl bg-slate-800/50 border border-slate-700 shadow-lg">
+                    <h2 className="text-3xl font-bold text-white mb-3">You Have an Active Plan</h2>
+                    <p className="text-slate-300 text-lg">
+                        Your current pro plan is active until:
+                    </p>
+                    <p className="text-2xl font-bold text-green-400 my-4">
+                        {formattedDate}
+                    </p>
+                    <Link 
+                        to="/account" 
+                        className="inline-block mt-4 px-6 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-500 transition-colors"
+                    >
+                        Manage Subscription
+                    </Link>
+                </div>
+            </div>
+        </section>
+    );
+};
+
+
 // --- MAIN APP COMPONENT ---
-export default function App() {
+export default function Home() {
+  useScrollToHash();
+  
+  // --- NEW STATE AND LOGIC FOR USER DATA ---
+  const [userData, setUserData] = useState({
+      isLoggedIn: false,
+      isPlanActive: false,
+      planExpiryDate: null,
+  });
+
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if(token) {
+        const fetchUserData = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/me', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if(response.ok) {
+                    const data = await response.json();
+                    setUserData({
+                        isLoggedIn: true,
+                        isPlanActive: data.user.isPlanActive,
+                        planExpiryDate: data.user.planExpiryDate
+                    });
+                } else {
+                    // Handle cases where token is invalid/expired
+                    localStorage.clear();
+                }
+            } catch (error) {
+                console.error("Failed to fetch user data:", error);
+            }
+        };
+        fetchUserData();
+    }
+  }, []);
+
   const {
     digitalTemplates: digitalTemplatesData,
     premiumAccounts: premiumAccountsData,
     socialServices: socialServicesData,
-    faqData, // <-- FAQ data is now here
+    faqData,
   } = templateData;
 
-  // --- Combine imported data with images ---
   const digitalTemplates = [
     { ...digitalTemplatesData[0], imageUrl: img2 },
     { ...digitalTemplatesData[1], imageUrl: img1 },
@@ -318,7 +390,6 @@ export default function App() {
     { ...socialServicesData[2], imageUrl: img8 },
   ];
 
-  // --- Enhanced Product Card Component ---
   const ProductCard = ({ item }) => {
     const cardRef = useRef(null);
 
@@ -338,32 +409,6 @@ export default function App() {
       if (!cardRef.current) return;
       cardRef.current.style.transform =
         "perspective(1000px) rotateX(0deg) rotateY(0deg)";
-    };
-
-    const FAQItem = ({ question, answer }) => {
-      const [isOpen, setIsOpen] = useState(false);
-      return (
-        <div className="border-b border-slate-700 py-4">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="w-full flex justify-between items-center text-left text-lg font-semibold text-white"
-          >
-            <span>{question}</span>
-            <ChevronDownIcon
-              className={`transform transition-transform duration-300 ${
-                isOpen ? "rotate-180" : ""
-              }`}
-            />
-          </button>
-          <div
-            className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              isOpen ? "max-h-40 mt-2" : "max-h-0"
-            }`}
-          >
-            <p className="text-slate-400 pt-2">{answer}</p>
-          </div>
-        </div>
-      );
     };
 
     return (
@@ -391,7 +436,6 @@ export default function App() {
     );
   };
 
-  // --- Sub-components for layout ---
   const FeatureCard = ({ icon, title, children }) => (
     <div className="p-6 rounded-lg bg-slate-800/50 border border-slate-700 transition-all duration-300 hover:border-indigo-500/50 hover:-translate-y-1">
       <div className="text-indigo-400 mb-4">{icon}</div>
@@ -417,7 +461,6 @@ export default function App() {
     </div>
   );
 
-  // --- Accordion Item for FAQ Section ---
   const FAQItem = ({ question, answer }) => {
     const [isOpen, setIsOpen] = useState(false);
     return (
@@ -447,11 +490,9 @@ export default function App() {
   return (
     <>
       <HeroBackground />
-
       <div className="w-full text-slate-100">
         <div className="relative z-10">
-          <HomePageNavbar />
-
+          <Navbar />
           <main>
             {/* --- Hero Section --- */}
             <section className="relative pt-24 pb-32 sm:pt-32 sm:pb-40 px-4">
@@ -477,6 +518,9 @@ export default function App() {
                     >
                       Explore Assets
                     </a>
+                  </div>
+                  <div className="mt-4 animate-fade-in-slide-up" style={{ animationDelay: "0.6s" }}>
+                    <DealTimer />
                   </div>
                 </div>
                 <HeroCodeBlock />
@@ -538,27 +582,25 @@ export default function App() {
                   </section>
                 </AnimatedSection>
 
+                {/* --- CONDITIONAL PRICING SECTION --- */}
                 <AnimatedSection>
-                  <PricingSection />
+                    {userData.isLoggedIn && userData.isPlanActive ? (
+                        <CurrentPlanStatus expiryDate={userData.planExpiryDate} />
+                    ) : (
+                        <PricingSection />
+                    )}
                 </AnimatedSection>
 
-                {/* --- NEW ACHIEVEMENTS SECTION --- */}
                 <AnimatedSection>
                   <section id="achievements" className="px-4">
-                    {" "}
-                    {/* Reduced padding back to py-16 */}
                     <div className="max-w-screen-xl mx-auto text-center">
                       <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-3 leading-tight">
-                        {" "}
-                        {/* Removed mb-6, back to mb-4 */}
                         Unlock <CountingNumber targetNumber={1000} />{" "}
                         <span className="text-indigo-400">Premium Assets</span>.
                         <br className="hidden sm:inline" /> Elevate Your
                         Projects.
                       </h2>
                       <p className="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto">
-                        {" "}
-                        {/* Removed mb-10 */}
                         Join a thriving community of creators who are building
                         stunning designs and boosting their brands with
                         Vyapaara's curated collection.
@@ -612,7 +654,6 @@ export default function App() {
                   </section>
                 </AnimatedSection>
 
-                {/* --- How It Works Section --- */}
                 <AnimatedSection>
                   <section id="how-it-works" className="px-4">
                     <div className="max-w-screen-xl mx-auto text-center">
@@ -713,7 +754,6 @@ export default function App() {
                   </section>
                 </AnimatedSection>
 
-                {/* --- FAQ Section --- */}
                 <AnimatedSection>
                   <section id="faq" className="px-4">
                     <div className="max-w-screen-md mx-auto">
@@ -726,7 +766,6 @@ export default function App() {
                         </p>
                       </div>
                       <div>
-                        {/* THIS NOW USES THE IMPORTED FAQ DATA */}
                         {faqData.map((faq, index) => (
                           <FAQItem
                             key={index}
@@ -745,5 +784,4 @@ export default function App() {
         </div>
       </div>
     </>
-  );
-}
+  )}

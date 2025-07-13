@@ -1,218 +1,165 @@
-const express = require("express");
-const User = require("../models/User");
-const { body, validationResult } = require("express-validator");
-const bcrypt = require('bcryptjs');
-var jwt = require('jsonwebtoken');
+const express = require('express');
 const router = express.Router();
-const JWT_SECRET = 'jai-mata-di';
-const nodemailer = require('nodemailer');
-var fetchuser = require('../middleware/fetchuser');
-require("dotenv").config();
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs'); // Yeh sahi haiconst User = require('../models/User');
+const sendWelcomeEmail = require('../utils/sendEmail');
+const authMiddleware = require('../middleware/authMiddleware');
+const User = require('../models/User'); // Ensure this line is correct
 
+// ... /signup and /register routes remain the same ...
 
-// ROUTE 1: Authenticate a User using: POST "/api/auth/signup".
-router.post('/signup', [
-    body('email', 'Enter a valid email').isEmail(),
-    body('password', 'Password must be at least 5 characters').isLength({ min: 5 }),
-], async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() }); // Return validation errors with status code
+// @route   POST api/auth/signup
+// @desc    Register a basic user, create token, and auto-login
+// @access  Public
+router.post('/signup', async (req, res) => {
+    const { fullName, email, password } = req.body;
+    if (!fullName || !email || !password) {
+        return res.status(400).json({ message: 'Please enter all fields' });
     }
     try {
-        // Checking whether a user with the provided email is already exists
-        let user = await User.findOne({ email: req.body.email });
+        let user = await User.findOne({ email });
         if (user) {
-            return await res.status(400).json({ message: "Sorry, a user with this email already exists" }); // No status code, only error message
+            return res.status(400).json({ message: 'User with this email already exists.' });
+        }
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        const newUser = new User({
+            fullName,
+            email,
+            password: hashedPassword,
+            isPlanActive: false,
+        });
+        const savedUser = await newUser.save();
+        await sendWelcomeEmail(savedUser.email, password);
+        const payload = { user: { id: savedUser.id } };
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' });
+        const userWithoutPassword = savedUser.toObject();
+        delete userWithoutPassword.password;
+        res.status(201).json({
+            message: 'Account created successfully!',
+            token,
+            user: userWithoutPassword
+        });
+    } catch (error) {
+        console.error('Error during signup:', error);
+        res.status(500).json({ message: 'Server error during signup.' });
+    }
+});
+
+// @route   POST api/auth/register
+// @desc    Register a new user with a plan OR update an existing user with a plan
+// @access  Public
+router.post('/register', async (req, res) => {
+    const { email, password, fullName, address, country, phoneNumber, plan } = req.body;
+    try {
+        let user = await User.findOne({ email });
+        if (user) {
+            if (user.isPlanActive) {
+                return res.status(400).json({ message: 'This account already has an active plan.' });
+            }
+            const activationDate = new Date();
+            let expiryDate = new Date(activationDate);
+            if (plan.cycle === 'monthly') expiryDate.setDate(expiryDate.getDate() + 30);
+            else if (plan.cycle === 'yearly') expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+            
+            user.address = address;
+            user.country = country;
+            user.phoneNumber = phoneNumber;
+            user.plan = plan;
+            user.isPlanActive = true;
+            user.planActivationDate = activationDate;
+            user.planExpiryDate = expiryDate;
+
+            const updatedUser = await user.save();
+            const payload = { user: { id: updatedUser.id } };
+            const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' });
+            const userWithoutPassword = updatedUser.toObject();
+            delete userWithoutPassword.password;
+            
+            return res.status(200).json({ message: 'Plan activated successfully!', token, user: userWithoutPassword });
         }
 
         const salt = await bcrypt.genSalt(10);
-        const secPass = await bcrypt.hash(req.body.password, salt);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        const activationDate = new Date();
+        let expiryDate = new Date(activationDate);
+        if (plan.cycle === 'monthly') expiryDate.setDate(expiryDate.getDate() + 30);
+        else if (plan.cycle === 'yearly') expiryDate.setFullYear(expiryDate.getFullYear() + 1);
 
-        user = await User.create({
-            username: req.body.username,
-            password: secPass,
-            email: req.body.email,
-        });
-
-        const data = { user: { id: user.id, username: user.username } };
-        const authtoken = jwt.sign(data, JWT_SECRET);
-
-        res.status(200).json({ userId: user.id, username: user.username, authtoken: authtoken });
-        console.log(user.id,user)
-
+        const newUser = new User({ email, password: hashedPassword, fullName, address, country, phoneNumber, plan, isPlanActive: true, planActivationDate: activationDate, planExpiryDate: expiryDate });
+        const savedUser = await newUser.save();
+        await sendWelcomeEmail(savedUser.email, password);
+        const payload = { user: { id: savedUser.id } };
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' });
+        const userWithoutPassword = savedUser.toObject();
+        delete userWithoutPassword.password;
+        res.status(201).json({ message: 'User registered and plan activated!', token, user: userWithoutPassword });
     } catch (error) {
-        console.error(error.message);
-        res.json({ error: "Some error occurred", message: error.message });
-      }});
+        console.error('Error during user registration/plan activation:', error);
+        res.status(500).json({ message: 'Server error.' });
+    }
+});
 
-// ROUTE 2: Authenticate a User using: POST "/api/auth/login". No login required
-router.post('/signin', [ 
-    body('email', 'Enter a valid email').isEmail(), 
-    body('password', 'Password cannot be blank').exists(), 
-], async (req, res) => {
-    // ... (validation errors ka code waisa hi rahega)
-
+// @route   POST api/auth/login
+// @desc    Authenticate user & get token
+// @access  Public
+router.post('/login', async (req, res) => {
     const { email, password } = req.body;
-
     try {
         let user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: "Invalid credentials." });
+            return res.status(400).json({ message: 'Invalid Credentials' });
         }
-
-        const passwordCompare = await bcrypt.compare(password, user.password);
-        if (!passwordCompare) {
-            return res.status(400).json({ message: "Invalid credentials." });
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid Credentials' });
         }
-
-        const data = { 
-            user: { 
-                id: user.id, 
-                username: user.username,
-                role: user.role 
-            } 
-        };
-        const authtoken = jwt.sign(data, JWT_SECRET);
-        res.json({ 
-            authtoken, 
-            userId: user.id, 
-            username: user.username, 
-            role: user.role,
-            message: "Login successful!" 
-        });
-
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ error: "An internal server error occurred", message: error.message });
+        const payload = { user: { id: user.id } };
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' });
+        const userWithoutPassword = user.toObject();
+        delete userWithoutPassword.password;
+        res.json({ token, user: userWithoutPassword });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
     }
 });
 
-// ROUTE 3: Get loggedin User Details using: POST "/api/auth/getuser". Login required
-router.get('/user/getUser', fetchuser, async (req, res) => {
-  try {
-      const user = await User.findById(req.user.id).select('-password'); // Adjust as needed
-      if (!user) {
-          return res.status(404).send({ error: "User not found" });
-      }
-      res.json({ username: user.username });
-  } catch (error) {
-      res.status(500).send({ error: "Server error" });
-  }
-});
 
-router.get('/getAllUsers', fetchuser, async (req, res) => {
-  try {
-    const currentUser = await User.findById(req.user.id);
-
-    if (!currentUser) {
-      return res.status(404).json({ error: "Current user not found" });
-    }
-
-    const users = await User.find({ _id: { $ne: req.user.id } }).select('-password');
-
-    const updatedUsers = users.map(user => ({
-      ...user.toObject(),
-      followed: currentUser.following.includes(user._id.toString()),
-    }));
-
-    res.status(200).json(updatedUsers);
-  } catch (error) {
-    console.error("Error fetching users:", error.message);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
-
-// ROUTE 4: POST /api/auth/forgot-password
-router.post('/forgot-password', async (req, res) => {
-    const { email } = req.body;
-
+// @route   GET api/auth/me
+// @desc    Get logged in user data and CHECK FOR PLAN EXPIRATION
+// @access  Private
+router.get('/me', authMiddleware, async (req, res) => {
     try {
-        const user = await User.findOne({ email });
+        let user = await User.findById(req.user.id).select('-password');
         if (!user) {
-            return res.status(400).json({ error: "No user found with this email" });
+            return res.status(404).json({ message: 'User not found' });
         }
 
-        const secret = JWT_SECRET + user.password;
-        const token = jwt.sign({ email: user.email, id: user._id }, secret, {
-        expiresIn: "5m",});
-
-        const link = `http://localhost:5173/reset-password/${user._id}/${token}`;
-
-        var transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS
-    },});
-
-        var mailOptions = {
-            from: "ayushsidhuu@gmail.com",
-            to: "ayushji456789@gmail.com",
-            subject: "Password Reset",
-            text: link,
-          };
-
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-              console.log(error);
-            } else {
-              console.log("Email sent: " + info.response);
+        // --- NAYI LOGIC: PLAN EXPIRATION CHECK ---
+        // Check if the user has an active plan and an expiry date
+        if (user.isPlanActive && user.planExpiryDate) {
+            const today = new Date();
+            // If expiry date is in the past
+            if (user.planExpiryDate < today) {
+                console.log(`Plan for user ${user.email} has expired. Deactivating...`);
+                user.isPlanActive = false;
+                // Optional: You can also clear plan details if you want
+                user.plan = undefined;
+                user.planActivationDate = undefined;
+                user.planExpiryDate = undefined;
+                
+                // Save the updated user status to the database
+                await user.save();
             }
-          });
-        console.log(link);
-    } catch (error) {}
-});
-
-// ROUTE 5: GET /api/auth/reset-password/:id/:token
-router.get("/reset-password/:id/:token", async (req, res) => {
-    const { id, token } = req.params;
-    console.log(req.params);
-    const oldUser = await User.findOne({ _id: id });
-    if (!oldUser) {
-      return res.json({ status: "User Not Exists!!" });
-    }
-    const secret = JWT_SECRET + oldUser.password;
-    try {
-      const verify = jwt.verify(token, secret);
-      res.render("index", { email: verify.email, status: "Not Verified" });
-    } catch (error) {
-      console.log(error);
-      res.send("Not Verified");
-    }
-  });
-
-// ROUTE 6: POST /api/auth/reset-password/:id/:token
-router.post("/reset-password/:id/:token", async (req, res) => {
-    const { id, token } = req.params;
-    const { password } = req.body;
-  
-    const oldUser = await User.findOne({ _id: id });
-    if (!oldUser) {
-      return res.json({ status: "User Not Exists!!" });
-    }
-    const secret = JWT_SECRET + oldUser.password;
-    try {
-      const verify = jwt.verify(token, secret);
-      const encryptedPassword = await bcrypt.hash(password, 10);
-      await User.updateOne(
-        {
-          _id: id,
-        },
-        {
-          $set: {
-            password: encryptedPassword,
-          },
         }
-      );
+        // -----------------------------------------
 
-      res.render("index", { email: verify.email, status: "verified" });
-    } catch (error) {
-      console.log(error);
-      res.json({ status: "Something Went Wrong" });
+        res.json({ user });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
     }
-  });
+});
 
 module.exports = router;
-

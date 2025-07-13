@@ -1,17 +1,27 @@
 import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
-// --- ICONS (Full and correct SVG code) ---
+// --- ICONS ---
 const DownloadIcon = (props) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg>
 );
-
 const XIcon = (props) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
 );
-
 const EyeIcon = (props) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
 );
+const StarIcon = (props) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+);
+const CheckCircleIcon = (props) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+);
+const AlertTriangleIcon = (props) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+);
+
 
 // --- Reusable Template Card Component ---
 export const TemplateCard = ({ template, onClick }) => {
@@ -32,15 +42,21 @@ export const TemplateCard = ({ template, onClick }) => {
         cardRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
     };
 
+    const isPro = template.price !== "Free";
+
     return (
         <div ref={cardRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} onClick={() => onClick(template)} className="product-card group cursor-pointer">
             <div className="product-card-glow"></div>
             <div className="product-card-content relative">
-                {template.price && (
-                    <div className="absolute top-4 right-4 z-10 bg-indigo-600 text-white text-sm font-bold px-3 py-1 rounded-full shadow-lg">
-                        ₹{template.price}
-                    </div>
-                )}
+                <div className={`absolute top-4 right-4 z-10 flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full shadow-lg ${
+                    isPro 
+                    ? 'bg-yellow-400/10 text-yellow-300 border border-yellow-400/20' 
+                    : 'bg-green-400/10 text-green-300 border border-green-400/20'
+                }`}>
+                    {isPro ? <StarIcon className="w-3 h-3" /> : <CheckCircleIcon className="w-3 h-3" />}
+                    <span>{isPro ? 'PRO' : 'FREE'}</span>
+                </div>
+                
                 <img src={template.images?.[0] || template.imageUrl} alt={template.name} className="w-full h-48 rounded-lg object-cover mb-4 transition-transform duration-300 group-hover:scale-105" />
                 <div className="relative">
                     <h3 className="text-lg font-bold text-white">{template.name}</h3>
@@ -52,77 +68,75 @@ export const TemplateCard = ({ template, onClick }) => {
 };
 
 // --- UPDATED Template Detail Modal Component ---
-export const TemplateDetailModal = ({ template, onClose, onPreviewClick }) => {
-    
-    const handlePayment = async () => {
+export const TemplateDetailModal = ({ template, onClose, onPreviewClick, isProUser }) => {
+    const navigate = useNavigate();
+
+    const handleDownloadClick = () => {
         if (!template) return;
 
-        // Make sure to use your new, secure Test Key ID
-        const key_id = "rzp_test_2lUAVegOmmNtf2"; 
-        
-        // 1. Create Order on Your Backend
-        const response = await fetch('http://localhost:5201/api/create-order', {
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            toast.error('Please log in to download templates.');
+            onClose();
+            navigate('/login');
+            return;
+        }
+
+        const downloadPromise = fetch(`http://localhost:5000/api/download/${template.id}`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                amount: template.price * 100, // Amount in paise
-                currency: 'INR',
-            }),
+            headers: { 'Authorization': `Bearer ${token}` }
+        }).then(async (response) => {
+            const result = await response.json();
+            if (!response.ok) {
+                throw new Error(result.message || 'An error occurred.');
+            }
+            return result;
         });
 
-        const order = await response.json();
-        if (!order) {
-            alert('Order creation failed. Please try again.');
-            return}
+        toast.promise(downloadPromise, {
+            loading: 'Preparing your download...',
+            success: (result) => {
+                if (result.zipUrl) {
+                    const link = document.createElement('a');
+                    link.href = result.zipUrl;
+                    link.setAttribute('download', `${template.id}.zip`);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    onClose();
 
-        // 2. Configure Razorpay Options
-        const options = {
-            key: key_id,
-            amount: order.amount,
-            currency: order.currency,
-            name: "Vyapaara Marketplace",
-            description: `Payment for ${template.name}`,
-            image: "/logo.svg",
-            order_id: order.id,
-            handler: async function (response) {
-                const data = {
-                    razorpay_payment_id: response.razorpay_payment_id,
-                    razorpay_order_id: response.razorpay_order_id,
-                    razorpay_signature: response.razorpay_signature,
-                };
-
-                // 4. Verify Payment on Your Backend
-                const verificationResponse = await fetch('http://localhost:5201/api/verify-payment', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data),
-                });
-                
-                const verificationResult = await verificationResponse.json();
-
-                if (verificationResult.success) {
-                    alert('Payment successful!');
-                    window.location.href = template.zipUrl;
-                } else {
-                    alert('Payment verification failed. Please contact support.');
+                    if (result.remainingDownloads <= 5 && result.remainingDownloads > 0) {
+                        toast.custom((t) => (
+                            <div className={`${t.visible ? 'animate-enter' : 'animate-leave'} max-w-md w-full bg-slate-800 shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}>
+                                <div className="flex-1 w-0 p-4">
+                                    <div className="flex items-start">
+                                        <div className="flex-shrink-0 pt-0.5">
+                                            <AlertTriangleIcon className="h-6 w-6 text-yellow-400" />
+                                        </div>
+                                        <div className="ml-3 flex-1">
+                                            <p className="text-sm font-medium text-white">Download Limit Warning</p>
+                                            <p className="mt-1 text-sm text-slate-400">
+                                                Only {result.remainingDownloads} downloads remaining today.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ), { id: 'limit-warning', duration: 5000 });
+                    }
+                    
+                    return 'Download starting!';
                 }
+                throw new Error("Download link not found in response.");
             },
-            prefill: {
-                name: "Ayush Kumar",
-                email: "ayush@example.com",
-                contact: "9999999999",
-            },
-            notes: {
-                template_id: template.id,
-            },
-            theme: {
-                color: "#6366F1",
-            },
-        };
-
-        // 6. Open Razorpay Checkout
-        const paymentObject = new window.Razorpay(options);
-        paymentObject.open();
+            error: (err) => {
+                if (err.message.includes('Pro plan')) {
+                    onClose();
+                    navigate('/#pricing');
+                }
+                return err.message || 'An error occurred.';
+            }
+        });
     };
 
     useEffect(() => {
@@ -132,6 +146,8 @@ export const TemplateDetailModal = ({ template, onClose, onPreviewClick }) => {
     }, [onClose]);
 
     if (!template) return null;
+    
+    const isProTemplate = template.price !== 'Free';
 
     return (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in" onClick={onClose}>
@@ -146,14 +162,7 @@ export const TemplateDetailModal = ({ template, onClose, onPreviewClick }) => {
                     <p className="text-slate-300 flex-grow mb-6">{template.description}</p>
                     
                     <div className="mt-auto flex flex-col gap-4">
-                        {template.price && (
-                            <div className="text-center mb-2">
-                                <span className="text-4xl font-extrabold text-white">₹{template.price}</span>
-                                <span className="text-slate-400 text-sm">/one-time purchase</span>
-                            </div>
-                        )}
-
-                        {template.images && template.images.length > 0 && (
+                        {template.images && template.images.length > 1 && (
                             <button
                                 onClick={() => onPreviewClick(template.images)}
                                 className="w-full inline-flex items-center justify-center gap-3 px-8 py-3 bg-slate-700/80 text-slate-200 font-semibold rounded-lg hover:bg-slate-700 transition-all duration-300 text-lg"
@@ -162,9 +171,12 @@ export const TemplateDetailModal = ({ template, onClose, onPreviewClick }) => {
                                 Show Previews
                             </button>
                         )}
-                        <button onClick={handlePayment} className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-500 transition-all duration-300 text-lg shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 transform hover:-translate-y-1">
+                        <button 
+                            onClick={handleDownloadClick} 
+                            className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-500 transition-all duration-300 text-lg shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 transform hover:-translate-y-1"
+                        >
                             <DownloadIcon className="w-6 h-6" />
-                            Buy & Download
+                            <span>Download Now</span>
                         </button>
                     </div>
                 </div>

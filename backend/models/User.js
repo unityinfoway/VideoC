@@ -1,29 +1,49 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
 
-const UserSchema = new Schema({
-    username: {
-        type: String,
-        required: true
-    },
+const PlanSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    cycle: { type: String, required: true, enum: ['monthly', 'yearly'] },
+    price: { type: String, required: true },
+}, { _id: false });
+
+const UserSchema = new mongoose.Schema({
     email: {
         type: String,
-        required: true,
-        unique: true
+        required: [true, 'Email is required'],
+        unique: true,
+        lowercase: true,
+        trim: true,
     },
     password: {
         type: String,
-        required: true
+        required: [true, 'Password is required'],
+    },
+    fullName: {
+        type: String,
+        required: [true, 'Full name is required'],
+        trim: true,
     },
     role: {
         type: String,
-        default: 'user' 
+        enum: ['user', 'admin'],
+        default: 'user',
     },
-    date: {
-        type: Date,
-        default: Date.now
+    address: { type: String, trim: true },
+    country: { type: String, trim: true },
+    phoneNumber: { type: String, trim: true },
+    plan: { type: PlanSchema },
+    isPlanActive: { type: Boolean, default: false },
+    planActivationDate: { type: Date },
+    planExpiryDate: { type: Date },
+    
+    // --- NAYI FIELDS DOWNLOAD LIMIT KE LIYE ---
+    downloadCount: {
+        type: Number,
+        default: 0
     },
-});
+    downloadLimitReset: {
+        type: Date
+    }
+}, { timestamps: true });
 
-const User = mongoose.model('user', UserSchema);
-module.exports = User;
+module.exports = mongoose.model('User', UserSchema);

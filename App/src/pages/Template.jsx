@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
-// --- (All imports and other components like Navbar, Footer, etc. remain the same) ---
+// --- (Assuming all other components like Navbar, Footer, etc. are imported correctly) ---
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import {
@@ -14,7 +16,7 @@ import {
 import { ImageLightbox } from "../components/ImageLightbox";
 import FilterSidebar from "../components/FilterSidebar";
 
-// --- (CONSTANTS, ICONS, SPINNERS: NO CHANGE) ---
+// --- ICONS ---
 const SearchIcon = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -33,24 +35,23 @@ const SearchIcon = (props) => (
 );
 const LoadingSpinner = () => (
   <div className="col-span-full flex justify-center items-center py-20">
-    <div className="animate-spin rounded-full h-18 w-18 border-t-3 border-b-3 border-cyan-700"></div>
+    <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
   </div>
 );
 
 // --- MAIN GRAPHICS PAGE COMPONENT ---
 export default function GraphicsPage() {
-  // --- Simplified State ---
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [lightboxImages, setLightboxImages] = useState([]);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [allTemplates, setAllTemplates] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // --- UPDATED: activeFilters state no longer includes price ---
   const [activeFilters, setActiveFilters] = useState({ category: "All" });
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredTemplates, setFilteredTemplates] = useState([]);
+  
+  const [isProUser, setIsProUser] = useState(false);
 
-  // --- Effect to fetch initial data ---
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -64,34 +65,45 @@ export default function GraphicsPage() {
         setIsLoading(false);
       }
     };
+
+    const fetchUserStatus = async () => {
+        const token = localStorage.getItem('authToken');
+        if (token) {
+            try {
+                const response = await fetch('http://localhost:5000/api/auth/me', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    setIsProUser(data.user.isPlanActive);
+                } else {
+                    localStorage.removeItem('authToken');
+                    setIsProUser(false);
+                }
+            } catch (error) {
+                console.error("Failed to fetch user status:", error);
+                setIsProUser(false);
+            }
+        } else {
+            setIsProUser(false);
+        }
+    };
+
     fetchData();
+    fetchUserStatus();
   }, []);
 
-  // --- UPDATED: Simplified filtering logic ---
   useEffect(() => {
     const applyFilters = (template) => {
-      // --- UPDATED: Destructure only category from activeFilters ---
       const { category } = activeFilters;
       const cleanedSearchTerm = searchTerm.trim().toLowerCase();
 
-      if (cleanedSearchTerm) {
-        const nameMatch = template.name
-          .toLowerCase()
-          .includes(cleanedSearchTerm);
-        const descMatch = template.description
-          .toLowerCase()
-          .includes(cleanedSearchTerm);
-        if (!nameMatch && !descMatch) return false;
+      if (cleanedSearchTerm && !template.name.toLowerCase().includes(cleanedSearchTerm) && !template.description.toLowerCase().includes(cleanedSearchTerm)) {
+        return false;
       }
 
-      // --- REMOVED: Price filter logic block ---
-
-      if (category !== "All") {
-        const categoryTerm = category.toLowerCase();
-        const categoryMatch =
-          template.name.toLowerCase().includes(categoryTerm) ||
-          template.description.toLowerCase().includes(categoryTerm);
-        if (!categoryMatch) return false;
+      if (category !== "All" && !(template.name.toLowerCase().includes(category.toLowerCase()) || template.description.toLowerCase().includes(category.toLowerCase()))) {
+        return false;
       }
       return true;
     };
@@ -102,7 +114,6 @@ export default function GraphicsPage() {
     }
   }, [searchTerm, allTemplates, activeFilters, isLoading]);
 
-  // --- Handler to update filters ---
   const handleFilterChange = (filterType, value) => {
     setActiveFilters((prevFilters) => ({
       ...prevFilters,
@@ -110,13 +121,8 @@ export default function GraphicsPage() {
     }));
   };
 
-  // --- Modal & Lightbox Handlers ---
-  const openModal = (template) => {
-    setSelectedTemplate(template);
-  };
-  const closeModal = () => {
-    setSelectedTemplate(null);
-  };
+  const openModal = (template) => setSelectedTemplate(template);
+  const closeModal = () => setSelectedTemplate(null);
   const handlePreviewClick = (images) => {
     setLightboxImages(images);
     setIsLightboxOpen(true);
@@ -124,8 +130,33 @@ export default function GraphicsPage() {
   };
 
   return (
-    // The entire JSX return block remains exactly the same
     <div className="w-full text-slate-100 bg-slate-950">
+      {/* --- FIX: Updated Toaster with better styling --- */}
+      <Toaster 
+        position="top-center" 
+        reverseOrder={false}
+        toastOptions={{
+            duration: 4000,
+            style: {
+                background: '#1e293b', // slate-800
+                color: '#e2e8f0', // slate-200
+                border: '1px solid #334155', // slate-700
+                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+            },
+            success: {
+                iconTheme: {
+                    primary: '#34d399', // green-400
+                    secondary: '#1e293b',
+                },
+            },
+            error: {
+                iconTheme: {
+                    primary: '#f87171', // red-400
+                    secondary: '#1e293b',
+                },
+            },
+        }}
+      />
       <div className="relative z-10">
         <HeroBackground />
         <Navbar />
@@ -138,8 +169,6 @@ export default function GraphicsPage() {
                 </h1>
                 <p className="max-w-2xl mx-auto mt-6 text-lg text-slate-400">
                   Save time with smart, ready-made designs that do the hard work for you.
-
-
                 </p>
               </div>
             </AnimatedSection>
@@ -194,6 +223,7 @@ export default function GraphicsPage() {
           template={selectedTemplate}
           onClose={closeModal}
           onPreviewClick={handlePreviewClick}
+          isProUser={isProUser}
         />
 
         {isLightboxOpen && (
