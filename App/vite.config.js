@@ -1,6 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,11 +8,12 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:5000',
         changeOrigin: true,
-      },
+      }
+    },
+    watch: {
+      usePolling: true,
+      interval: 100,
     }
   },
-  plugins: [
-    react(),
-    tailwindcss()
-  ]
-})
+  plugins: [react()],
+});
