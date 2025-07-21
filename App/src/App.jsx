@@ -4,6 +4,7 @@ import Authpage from "./pages/Authpage";
 import Home from "./pages/Home";
 import Meeting from "./pages/Meeting"
 import Dashboard from "./pages/Dashboard"
+import Test from "./pages/Test";
 import './index.css';
 
 
@@ -13,6 +14,7 @@ const App = () => {
       <Routes>
         <Route path="/h" element={<Home />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/test" element={<Test />} /> 
         <Route path="/" element={<Authpage/>} />
         <Route path="/Meeting" element={<Meeting/>} />
         <Route path="/dashboard" element={<Dashboard />} />

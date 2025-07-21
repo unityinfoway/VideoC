@@ -1,261 +1,345 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import MyLogo from '../assets/logo.png';
+import Toast from '../components/Toast';
 
-// --- Reusable Icon Components ---
+// Your Firebase imports
+import { auth, db } from '../firebase.js';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendPasswordResetEmail,
+} from 'firebase/auth';
+import { setDoc, doc, getDoc } from 'firebase/firestore';
+
+// --- Components (Icons and Loaders) ---
+
 const GoogleIcon = () => (
-    <svg className="w-5 h-5" viewBox="0 0 48 48">
-        <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
-        <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path>
-        <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path>
-        <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.574l6.19,5.238C41.38,36.168,44,30.638,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
-    </svg>
+  <svg className="w-5 h-5 mr-3" viewBox="0 0 48 48">
+    <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039L38.804 9.196C34.976 5.82 29.828 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"></path>
+    <path fill="#FF3D00" d="M6.306 14.691c-1.645 3.119-2.656 6.637-2.656 10.309C3.65 29.363 4.661 32.881 6.306 36.009L12.05 31.549C11.233 29.531 10.8 27.345 10.8 25c0-2.345.433-4.531 1.25-6.549L6.306 14.691z"></path>
+    <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-5.657-5.657C30.072 34.668 27.221 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-5.744 4.614C10.032 39.577 16.506 44 24 44z"></path>
+    <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.16-4.082 5.571l5.657 5.657C42.488 36.425 44 31.13 44 25c0-2.616-.569-5.126-1.589-7.443l-5.8 4.526C37.525 18.067 37.225 20 37.225 20z"></path>
+  </svg>
 );
 
-// --- Animated Background Component ---
-const AnimatedBackground = () => {
-    const numLines = 25;
-    const lines = Array.from({ length: numLines });
+const AnimatedGraphic = () => (
+    <div className="w-full max-w-xs h-auto">
+        <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+            <defs>
+                <linearGradient id="lottie-grad-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#3b82f6" /> 
+                    <stop offset="100%" stopColor="#0ea5e9" />
+                </linearGradient>
+                <filter id="glow-blue" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="15" result="coloredBlur" />
+                    <feMerge>
+                        <feMergeNode in="coloredBlur" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+            </defs>
+            <motion.g initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1.5, ease: "circOut" }}>
+                <motion.circle cx="400" cy="300" r="120" stroke="url(#lottie-grad-blue)" strokeWidth="4" fill="none" filter="url(#glow-blue)" strokeDasharray="20 20" animate={{ rotate: 360 }} transition={{ duration: 40, repeat: Infinity, ease: 'linear' }} />
+                <motion.path d="M360 300 L390 330 L450 270" stroke="#3b82f6" strokeWidth="12" strokeLinecap="round" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1, delay: 0.5, ease: "easeOut" }} />
+                <motion.circle cx="400" cy="300" r="150" stroke="rgba(59, 130, 246, 0.2)" strokeWidth="1" fill="none" animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }} />
+            </motion.g>
+        </svg>
+    </div>
+);
 
-    const lineVariants = {
-        hidden: { pathLength: 0, opacity: 0 },
-        visible: (i) => ({
-            pathLength: 1,
-            opacity: 0.7,
-            transition: {
-                pathLength: { delay: i * 0.1, type: "spring", duration: 2, bounce: 0 },
-                opacity: { delay: i * 0.1, duration: 0.1 },
-            }
-        })
-    };
-    
-    return (
-        <div className="absolute top-0 left-0 w-full h-full z-0 overflow-hidden">
-             <svg width="100%" height="100%" className="absolute top-0 left-0" preserveAspectRatio="none">
-                <defs>
-                    <linearGradient id="line-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="rgba(59, 130, 246, 0.2)" />
-                        <stop offset="100%" stopColor="rgba(139, 92, 246, 0.2)" />
-                    </linearGradient>
-                </defs>
-                {lines.map((_, i) => (
-                    <React.Fragment key={i}>
-                        {/* Horizontal Line */}
-                        <motion.line
-                            x1="-5%"
-                            y1={`${(i / (numLines - 1)) * 100}%`}
-                            x2="105%"
-                            y2={`${(i / (numLines - 1)) * 100}%`}
-                            stroke="url(#line-gradient)"
-                            strokeWidth="0.3"
-                            variants={lineVariants}
-                            initial="hidden"
-                            animate="visible"
-                            custom={i}
-                        />
-                        {/* Vertical Line */}
-                        <motion.line
-                            x1={`${(i / (numLines - 1)) * 100}%`}
-                            y1="-5%"
-                            x2={`${(i / (numLines - 1)) * 100}%`}
-                            y2="105%"
-                            stroke="url(#line-gradient)"
-                            strokeWidth="0.3"
-                            variants={lineVariants}
-                            initial="hidden"
-                            animate="visible"
-                            custom={i + 5} // offset delay
-                        />
-                    </React.Fragment>
-                ))}
-            </svg>
-            <motion.div
-                className="absolute -top-1/4 -left-1/4 w-1/2 h-1/2 bg-gradient-to-br from-blue-600/40 to-purple-600/40 rounded-full filter blur-3xl opacity-40"
-                animate={{
-                    x: [0, 40, -20, 0],
-                    y: [0, -30, 20, 0],
-                    scale: [1, 1.1, 1, 1.05, 1],
-                    rotate: [0, 10, -10, 0]
-                }}
-                transition={{
-                    duration: 30,
-                    repeat: Infinity,
-                    repeatType: "mirror",
-                    ease: "easeInOut"
-                }}
-            />
-            <motion.div
-                className="absolute -bottom-1/4 -right-1/4 w-3/4 h-3/4 bg-gradient-to-tl from-purple-600/30 to-blue-600/30 rounded-full filter blur-3xl opacity-40"
-                 animate={{
-                    x: [0, -30, 10, 0],
-                    y: [0, 20, -40, 0],
-                    scale: [1, 1.05, 1, 0.95, 1],
-                    rotate: [0, -15, 15, 0]
-                }}
-                transition={{
-                    duration: 35,
-                    repeat: Infinity,
-                    repeatType: "mirror",
-                    ease: "easeInOut",
-                    delay: 5
-                }}
-            />
-        </div>
-    );
-};
+const LoadingSpinner = () => (
+  <svg className="animate-spin h-12 w-12 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+  </svg>
+);
 
-const formVariants = {
-    initial: { opacity: 0, y: 30 },
-    animate: { opacity: 1, y: 0, transition: { staggerChildren: 0.1, duration: 0.5, ease: "easeOut" } },
-    exit: { opacity: 0, y: -30, transition: { duration: 0.3, ease: "easeIn" } }
-};
 
-const itemVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-};
+const AuthForm = () => {
+  const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [resetEmail, setResetEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isResetModalOpen, setIsResetModalOpen] = useState(false);
+  const [toast, setToast] = useState({ message: '', type: 'error' });
 
-// --- Main App Component ---
-export default function App() {
-    const [isLogin, setIsLogin] = useState(false);
+  const handleAuthSuccess = (message) => {
+    setIsSuccess(true);
+    setToast({ message, type: 'success' });
+    setTimeout(() => {
+      navigate('/dashboard');
+    }, 2000);
+  };
+  
+  const handleAuthError = (err) => {
+      const errorMap = {
+          'auth/invalid-credential': 'Invalid email or password. Please try again.',
+          'auth/email-already-in-use': 'An account with this email already exists.',
+          'auth/weak-password': 'The password is too weak. Please choose a stronger one.',
+          'auth/user-not-found': 'No account found with this email.',
+      };
+      setToast({ message: errorMap[err.code] || err.message, type: 'error' });
+  };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setToast({ message: '', type: 'error' });
+    setLoading(true);
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1,
-                delayChildren: 0.3,
-            },
-        },
-    };
-    
-    const brandingItemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } },
-    };
-    const Logo = MyLogo; // Replace with your actual logo path
+    if (isLogin) {
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const token = await userCredential.user.getIdToken();
+        const userDocRef = doc(db, "users", userCredential.user.uid);
+        const docSnap = await getDoc(userDocRef);
+        
+        if (docSnap.exists()) {
+            const userData = docSnap.data();
+            const userName = `${userData.firstName} ${userData.lastName}`;
+            localStorage.setItem('authToken', token);
+            localStorage.setItem('userName', userName);
+            console.log("Auth Token:", token);
+            console.log("User Name:", userName);
+        }
+        
+        handleAuthSuccess('Login Successful! Redirecting...');
+      } catch (err) {
+        handleAuthError(err);
+      }
+    } else {
+      const nameRegex = /^[A-Za-z]+$/;
+      if (!nameRegex.test(firstName) || !nameRegex.test(lastName)) {
+        setLoading(false);
+        return setToast({ message: 'Names should only contain letters.', type: 'error' });
+      }
+      if (password.length < 6) {
+        setLoading(false);
+        return setToast({ message: 'Password must be at least 6 characters.', type: 'error' });
+      }
+      const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+      if (!specialCharRegex.test(password)) {
+        setLoading(false);
+        return setToast({ message: 'Password must include a special character.', type: 'error' });
+      }
 
-    return (
-        <div className="relative min-h-screen bg-slate-900 text-white font-sans overflow-hidden">
-            <AnimatedBackground />
-            <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
-                <motion.div 
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.7, ease: "easeOut" }}
-                    className="w-full max-w-6xl mx-auto grid lg:grid-cols-2 rounded-2xl shadow-2xl overflow-hidden"
-                    style={{
-                        background: 'rgba(15, 23, 42, 0.6)',
-                        backdropFilter: 'blur(15px)',
-                        border: '1px solid rgba(51, 65, 85, 0.5)'
-                    }}
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        await setDoc(doc(db, "users", userCredential.user.uid), { uid: userCredential.user.uid, firstName: firstName, lastName: lastName, email: userCredential.user.email, createdAt: new Date(), authProvider: "email" });
+        
+        const token = await userCredential.user.getIdToken();
+        const userName = `${firstName} ${lastName}`;
+        localStorage.setItem('authToken', token);
+        localStorage.setItem('userName', userName);
+        console.log("Auth Token:", token);
+        console.log("User Name:", userName);
+
+        handleAuthSuccess('Account Created! Redirecting...');
+      } catch (err) {
+        handleAuthError(err);
+      }
+    }
+    setLoading(false);
+  };
+
+  const handleGoogleAuth = async () => {
+    setToast({ message: '', type: 'error' });
+    setLoading(true);
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const userDocRef = doc(db, "users", result.user.uid);
+      const docSnap = await getDoc(userDocRef);
+      
+      let fName, lName;
+      if (!docSnap.exists()) {
+        const nameParts = result.user.displayName ? result.user.displayName.split(' ') : [];
+        fName = nameParts[0] || '';
+        lName = nameParts.slice(1).join(' ') || '';
+        await setDoc(userDocRef, { uid: result.user.uid, firstName: fName, lastName: lName, email: result.user.email, createdAt: new Date(), authProvider: "google" });
+      } else {
+          const userData = docSnap.data();
+          fName = userData.firstName;
+          lName = userData.lastName;
+      }
+
+      const token = await result.user.getIdToken();
+      const userName = `${fName} ${lName}`;
+      localStorage.setItem('authToken', token);
+      localStorage.setItem('userName', userName);
+      console.log("Auth Token:", token);
+      console.log("User Name:", userName);
+
+      handleAuthSuccess('Login Successful! Redirecting...');
+    } catch (err) {
+      handleAuthError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePasswordReset = async (e) => {
+    e.preventDefault();
+    if (!resetEmail) {
+        return setToast({ message: 'Please enter your email address.', type: 'error' });
+    }
+    setLoading(true);
+    try {
+        await sendPasswordResetEmail(auth, resetEmail);
+        setToast({ message: 'Password reset link sent! Check your inbox.', type: 'success' });
+        setIsResetModalOpen(false);
+        setResetEmail('');
+    } catch (err) {
+        handleAuthError(err);
+    }
+    setLoading(false);
+  };
+
+  const toggleAuthMode = () => {
+    setIsLogin(!isLogin);
+    setToast({ message: '', type: 'error' });
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPassword('');
+  };
+
+  return (
+    <>
+      <style>{`
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active {
+          -webkit-box-shadow: 0 0 0 30px #1f2937 inset !important;
+          -webkit-text-fill-color: #e2e8f0 !important;
+          caret-color: #e2e8f0 !important;
+          border-bottom-color: #3b82f6 !important;
+        }
+      `}</style>
+      <div className="min-h-screen bg-slate-900 text-slate-300 flex flex-col justify-center items-center p-4">
+        <Toast message={toast.message} type={toast.type} onClose={() => setToast({ message: '', type: 'error' })} />
+        
+        <AnimatePresence>
+            {isResetModalOpen && (
+                <motion.div
+                    className="fixed inset-0 bg-black/50 z-50 flex justify-center items-center"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
                 >
-                    
-                    {/* Left Section: Form */}
-                    <div className="p-8 md:p-12 order-2 lg:order-1">                      
-                        <AnimatePresence mode="wait">
-                            {isLogin ? (
-                                <motion.div key="login" variants={formVariants} initial="initial" animate="animate" exit="exit">
-                                    <motion.div variants={itemVariants} className="mb-8 text-center lg:text-left">
-                                        <img src={Logo} alt="Logo" className="w-16 h-16 mb-4 mx-auto lg:mx-0"/>
-                                        <h1 className="text-3xl font-bold text-white mb-2">Welcome Back.</h1>
-                                        <p className="text-slate-400">Sign in to access your dashboard.</p>
-                                    </motion.div>
-                                    <form className="space-y-5">
-                                        <motion.div variants={itemVariants} className="relative">
-                                            <label htmlFor="login-email" className="text-sm font-medium text-slate-300">Email Address</label>
-                                            <input id="login-email" type="email" placeholder="you@example.com" className="mt-1 w-full bg-slate-800/50 border border-slate-700 rounded-lg py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" />
-                                        </motion.div>
-                                        <motion.div variants={itemVariants} className="relative">
-                                            <label htmlFor="login-password" className="text-sm font-medium text-slate-300">Password</label>
-                                            <input id="login-password" type="password" placeholder="••••••••••••" className="mt-1 w-full bg-slate-800/50 border border-slate-700 rounded-lg py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" />
-                                        </motion.div>
-                                        <motion.div variants={itemVariants} className="flex justify-between items-center text-sm">
-                                            <label className="flex items-center text-slate-400">
-                                                <input type="checkbox" className="w-4 h-4 rounded bg-slate-700 border-slate-600 text-blue-500 focus:ring-blue-500" />
-                                                <span className="ml-2">Remember me</span>
-                                            </label>
-                                            <a href="#" className="font-medium text-blue-400 hover:underline">Forgot Password?</a>
-                                        </motion.div>
-                                        <motion.div variants={itemVariants}>
-                                            <motion.button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-blue-500/50 transition-all duration-300" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-                                                Sign In
-                                            </motion.button>
-                                        </motion.div>
-                                    </form>
-                                    <motion.div variants={itemVariants} className="mt-6 text-center">
-                                        <p className="text-sm text-slate-400">
-                                            Don't have an account? <button onClick={() => setIsLogin(false)} className="font-medium text-blue-400 hover:underline bg-transparent border-none p-0 cursor-pointer">Sign Up</button>
-                                        </p>
-                                    </motion.div>
-                                </motion.div>
-                            ) : (
-                                <motion.div key="signup" variants={formVariants} initial="initial" animate="animate" exit="exit">
-                                    <motion.div variants={itemVariants} className="mb-8 text-center lg:text-left">
-                                        <img src={Logo} alt="Logo" className="w-16 h-16 mb-4 mx-auto lg:mx-0"/>
-                                        <h1 className="text-3xl font-bold text-white mb-2">Sign Up For Free.</h1>
-                                        <p className="text-slate-400">Let's sign up quickly to get started</p>
-                                    </motion.div>
-                                    <form className="space-y-5">
-                                        <motion.div variants={itemVariants} className="relative">
-                                            <label htmlFor="username" className="text-sm font-medium text-slate-300">Username</label>
-                                            <input id="username" type="text" placeholder="e.g., A_XE_A_13b" className="mt-1 w-full bg-slate-800/50 border border-slate-700 rounded-lg py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" />
-                                        </motion.div>
-                                        <motion.div variants={itemVariants} className="relative">
-                                            <label htmlFor="email" className="text-sm font-medium text-slate-300">Email Address</label>
-                                            <input id="email" type="email" placeholder="you@example.com" className="mt-1 w-full bg-slate-800/50 border border-slate-700 rounded-lg py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" />
-                                        </motion.div>
-                                        <motion.div variants={itemVariants} className="relative">
-                                            <label htmlFor="password" className="text-sm font-medium text-slate-300">Password</label>
-                                            <input id="password" type="password" placeholder="••••••••••••" className="mt-1 w-full bg-slate-800/50 border border-slate-700 rounded-lg py-3 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" />
-                                            <div className="absolute right-4 top-10 text-xs text-green-400">Strong</div>
-                                        </motion.div>
-                                        <motion.div variants={itemVariants}>
-                                            <motion.button type="submit" className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 rounded-lg shadow-lg hover:shadow-blue-500/50 transition-all duration-300" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-                                                Sign Up
-                                            </motion.button>
-                                        </motion.div>
-                                    </form>
-                                    <motion.div variants={itemVariants} className="mt-6 text-center">
-                                        <p className="text-sm text-slate-400">
-                                            Already have an account? <button onClick={() => setIsLogin(true)} className="font-medium text-blue-400 hover:underline bg-transparent border-none p-0 cursor-pointer">Sign In</button>
-                                        </p>
-                                    </motion.div>
-                                    <motion.div variants={itemVariants} className="relative flex py-5 items-center">
-                                        <div className="flex-grow border-t border-slate-700"></div>
-                                        <span className="flex-shrink mx-4 text-slate-500 text-sm">OR</span>
-                                        <div className="flex-grow border-t border-slate-700"></div>
-                                    </motion.div>
-                                    <motion.div variants={itemVariants}>
-                                        <button className="w-full flex items-center justify-center gap-3 bg-slate-800/50 border border-slate-700 rounded-lg py-3 hover:bg-slate-700/70 transition-colors">
-                                            <GoogleIcon />
-                                            Sign Up With Google
-                                        </button>
-                                    </motion.div>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
-
-                    {/* Right Section: Branding */}
-                    <motion.div 
-                        variants={containerVariants}
-                        initial="hidden"
-                        animate="visible"
-                        className="p-8 md:p-12 flex flex-col justify-center items-center text-center lg:text-left order-1 lg:order-2"
-                        style={{ background: 'rgba(15, 23, 42, 0.3)' }}
+                    <motion.div
+                        className="bg-slate-800 p-8 rounded-lg shadow-xl w-full max-w-md"
+                        initial={{ scale: 0.9, y: -20 }}
+                        animate={{ scale: 1, y: 0 }}
+                        exit={{ scale: 0.9, y: -20 }}
                     >
-                        <div className="w-full max-w-sm">
-                            <motion.h2 variants={brandingItemVariants} className="text-5xl font-extrabold text-white mb-4">IN8</motion.h2>
-                            <motion.h3 variants={brandingItemVariants} className="text-2xl font-bold text-slate-200 mb-4">Seamless. Secure. Smarter Video Meetings.</motion.h3>
-                            <motion.p variants={brandingItemVariants} className="text-slate-400 leading-relaxed">
-                                IN8 is your all-in-one solution for effortless video conferencing—designed for teams, educators, and creators. Connect with clarity, collaborate in real time, and experience the future of virtual meetings with cutting-edge performance and enterprise-level security.
-                            </motion.p>
-                        </div>
+                        <h2 className="text-2xl font-bold text-white mb-4">Reset Password</h2>
+                        <p className="text-slate-400 mb-6">Enter your email address and we'll send you a link to reset your password.</p>
+                        <form onSubmit={handlePasswordReset}>
+                            <label className="text-xs text-slate-400">Email Address</label>
+                            <input
+                                type="email"
+                                value={resetEmail}
+                                onChange={(e) => setResetEmail(e.target.value)}
+                                required
+                                className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 text-white placeholder-slate-500 py-2 outline-none transition-colors duration-300"
+                                placeholder="you@example.com"
+                            />
+                            <div className="flex justify-end gap-4 mt-8">
+                                <button type="button" onClick={() => setIsResetModalOpen(false)} className="px-6 py-2 rounded-lg text-slate-300 hover:bg-slate-700 transition-colors">Cancel</button>
+                                <button type="submit" disabled={loading} className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 transition-colors">
+                                    {loading ? 'Sending...' : 'Send Reset Link'}
+                                </button>
+                            </div>
+                        </form>
                     </motion.div>
                 </motion.div>
+            )}
+        </AnimatePresence>
+
+        <div className="relative w-full max-w-5xl bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+          
+          {isSuccess && (
+            <motion.div 
+              className="absolute inset-0 bg-slate-900/90 flex justify-center items-center z-40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <LoadingSpinner />
+            </motion.div>
+          )}
+
+          <div className="p-8 md:p-12">
+            <div className="mb-8">
+              <h2 className="text-sm font-bold tracking-widest uppercase text-blue-500">IN8</h2>
+              <h1 className="text-3xl font-bold text-slate-100 mt-2">{isLogin ? 'Welcome Back' : 'Create Account'}</h1>
+              <p className="text-slate-400 mt-1">{isLogin ? 'Sign in to continue your journey.' : 'Get started with a free account.'}</p>
             </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {!isLogin && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required={!isLogin} className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 text-white placeholder-slate-500 py-2 outline-none transition-colors duration-300" placeholder="First Name" />
+                  <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required={!isLogin} className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 text-white placeholder-slate-500 py-2 outline-none transition-colors duration-300" placeholder="Last Name" />
+                </div>
+              )}
+              <div>
+                <label className="text-xs text-slate-400">Email Address</label>
+                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 text-white placeholder-slate-500 py-2 outline-none transition-colors duration-300" placeholder="you@example.com" />
+              </div>
+              <div>
+                <div className="flex justify-between items-center">
+                  <label className="text-xs text-slate-400">Password</label>
+                  {isLogin && <button type="button" onClick={() => setIsResetModalOpen(true)} className="text-xs font-medium text-blue-500 hover:text-blue-400">Forgot Password?</button>}
+                </div>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 text-white placeholder-slate-500 py-2 outline-none transition-colors duration-300" placeholder="••••••••" />
+              </div>
+              <div>
+                <button type="submit" disabled={loading || isSuccess} className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-md font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ring-offset-slate-900 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                  {loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Create Account')}
+                </button>
+              </div>
+              <div className="flex items-center justify-center">
+                <div className="flex-grow border-t border-slate-700"></div>
+                <span className="mx-4 text-xs font-medium text-slate-500">OR</span>
+                <div className="flex-grow border-t border-slate-700"></div>
+              </div>
+              <div>
+                <button onClick={handleGoogleAuth} type="button" disabled={loading || isSuccess} className="w-full flex items-center justify-center bg-slate-700 border border-slate-600 rounded-lg px-4 py-2.5 text-md font-medium text-slate-300 hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 ring-offset-slate-900 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                  <GoogleIcon />
+                  Sign in with Google
+                </button>
+              </div>
+            </form>
+            <div className="text-center mt-6">
+              <div className="text-sm text-slate-400">
+                {isLogin ? "Don't have an account?" : 'Already have an account?'}
+                <button onClick={toggleAuthMode} className="ml-1 font-medium text-blue-500 hover:text-blue-400 hover:underline">
+                  {isLogin ? 'Sign Up' : 'Sign In'}
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="hidden md:flex flex-col justify-center items-center text-center p-12 bg-slate-900/50 rounded-r-2xl">
+              <h1 className="text-5xl font-extrabold text-white tracking-tighter">IN8</h1>
+              <p className="text-lg text-slate-300 mt-2">Seamless. Secure. Smarter Video Meetings.</p>
+              <div className="mt-8"><AnimatedGraphic /></div>
+              <p className="text-sm text-slate-400 mt-8 max-w-xs">Connect with clarity, collaborate in real-time, and experience the future of virtual meetings with cutting-edge performance.</p>
+          </div>
         </div>
-    );
-}
+      </div>
+    </>
+  );
+};
+
+export default AuthForm;
