@@ -3,6 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Toast from '../components/Toast';
 
+// <-- IMPORT YOUR ASSETS HERE -->
+import logoImage from '../assets/logo.png'; 
+import backgroundImage from '../assets/bg5.jpg'; 
+import authBannerImage from '../assets/auth-banner.jpg';
+
 // Your Firebase imports
 import { auth, db } from '../firebase.js';
 import {
@@ -23,31 +28,6 @@ const GoogleIcon = () => (
     <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-5.657-5.657C30.072 34.668 27.221 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-5.744 4.614C10.032 39.577 16.506 44 24 44z"></path>
     <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.16-4.082 5.571l5.657 5.657C42.488 36.425 44 31.13 44 25c0-2.616-.569-5.126-1.589-7.443l-5.8 4.526C37.525 18.067 37.225 20 37.225 20z"></path>
   </svg>
-);
-
-const AnimatedGraphic = () => (
-    <div className="w-full max-w-xs h-auto">
-        <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-            <defs>
-                <linearGradient id="lottie-grad-blue" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#3b82f6" /> 
-                    <stop offset="100%" stopColor="#0ea5e9" />
-                </linearGradient>
-                <filter id="glow-blue" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="15" result="coloredBlur" />
-                    <feMerge>
-                        <feMergeNode in="coloredBlur" />
-                        <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                </filter>
-            </defs>
-            <motion.g initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 1.5, ease: "circOut" }}>
-                <motion.circle cx="400" cy="300" r="120" stroke="url(#lottie-grad-blue)" strokeWidth="4" fill="none" filter="url(#glow-blue)" strokeDasharray="20 20" animate={{ rotate: 360 }} transition={{ duration: 40, repeat: Infinity, ease: 'linear' }} />
-                <motion.path d="M360 300 L390 330 L450 270" stroke="#3b82f6" strokeWidth="12" strokeLinecap="round" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1, delay: 0.5, ease: "easeOut" }} />
-                <motion.circle cx="400" cy="300" r="150" stroke="rgba(59, 130, 246, 0.2)" strokeWidth="1" fill="none" animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }} />
-            </motion.g>
-        </svg>
-    </div>
 );
 
 const LoadingSpinner = () => (
@@ -106,8 +86,6 @@ const AuthForm = () => {
             const userName = `${userData.firstName} ${userData.lastName}`;
             localStorage.setItem('authToken', token);
             localStorage.setItem('userName', userName);
-            console.log("Auth Token:", token);
-            console.log("User Name:", userName);
         }
         
         handleAuthSuccess('Login Successful! Redirecting...');
@@ -138,8 +116,6 @@ const AuthForm = () => {
         const userName = `${firstName} ${lastName}`;
         localStorage.setItem('authToken', token);
         localStorage.setItem('userName', userName);
-        console.log("Auth Token:", token);
-        console.log("User Name:", userName);
 
         handleAuthSuccess('Account Created! Redirecting...');
       } catch (err) {
@@ -174,8 +150,6 @@ const AuthForm = () => {
       const userName = `${fName} ${lName}`;
       localStorage.setItem('authToken', token);
       localStorage.setItem('userName', userName);
-      console.log("Auth Token:", token);
-      console.log("User Name:", userName);
 
       handleAuthSuccess('Login Successful! Redirecting...');
     } catch (err) {
@@ -224,118 +198,164 @@ const AuthForm = () => {
           border-bottom-color: #3b82f6 !important;
         }
       `}</style>
-      <div className="min-h-screen bg-slate-900 text-slate-300 flex flex-col justify-center items-center p-4">
-        <Toast message={toast.message} type={toast.type} onClose={() => setToast({ message: '', type: 'error' })} />
-        
-        <AnimatePresence>
-            {isResetModalOpen && (
-                <motion.div
-                    className="fixed inset-0 bg-black/50 z-50 flex justify-center items-center"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                >
+      <div 
+        className="min-h-screen bg-cover bg-center"
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
+        <div className="min-h-screen bg-black/20 flex flex-col justify-center items-center p-4">
+            <Toast message={toast.message} type={toast.type} onClose={() => setToast({ message: '', type: 'error' })} />
+            
+            <AnimatePresence>
+                {isResetModalOpen && (
                     <motion.div
-                        className="bg-slate-800 p-8 rounded-lg shadow-xl w-full max-w-md"
-                        initial={{ scale: 0.9, y: -20 }}
-                        animate={{ scale: 1, y: 0 }}
-                        exit={{ scale: 0.9, y: -20 }}
+                        className="fixed inset-0 bg-black/50 z-50 flex justify-center items-center"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
                     >
-                        <h2 className="text-2xl font-bold text-white mb-4">Reset Password</h2>
-                        <p className="text-slate-400 mb-6">Enter your email address and we'll send you a link to reset your password.</p>
-                        <form onSubmit={handlePasswordReset}>
-                            <label className="text-xs text-slate-400">Email Address</label>
-                            <input
-                                type="email"
-                                value={resetEmail}
-                                onChange={(e) => setResetEmail(e.target.value)}
-                                required
-                                className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 text-white placeholder-slate-500 py-2 outline-none transition-colors duration-300"
-                                placeholder="you@example.com"
-                            />
-                            <div className="flex justify-end gap-4 mt-8">
-                                <button type="button" onClick={() => setIsResetModalOpen(false)} className="px-6 py-2 rounded-lg text-slate-300 hover:bg-slate-700 transition-colors">Cancel</button>
-                                <button type="submit" disabled={loading} className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 transition-colors">
-                                    {loading ? 'Sending...' : 'Send Reset Link'}
-                                </button>
-                            </div>
-                        </form>
+                        <motion.div
+                            className="bg-slate-800 p-8 rounded-lg shadow-xl w-full max-w-md"
+                            initial={{ scale: 0.9, y: -20 }}
+                            animate={{ scale: 1, y: 0 }}
+                            exit={{ scale: 0.9, y: -20 }}
+                        >
+                            <h2 className="text-2xl font-bold text-white mb-4">Reset Password</h2>
+                            <p className="text-slate-400 mb-6">Enter your email address and we'll send you a link to reset your password.</p>
+                            <form onSubmit={handlePasswordReset}>
+                                <label className="text-xs text-slate-400">Email Address</label>
+                                <input
+                                    type="email"
+                                    value={resetEmail}
+                                    onChange={(e) => setResetEmail(e.target.value)}
+                                    required
+                                    className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 text-white placeholder-slate-500 py-2 outline-none transition-colors duration-300"
+                                    placeholder="you@example.com"
+                                />
+                                <div className="flex justify-end gap-4 mt-8">
+                                    <button type="button" onClick={() => setIsResetModalOpen(false)} className="px-6 py-2 rounded-lg text-slate-300 hover:bg-slate-700 transition-colors">Cancel</button>
+                                    <button type="submit" disabled={loading} className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 transition-colors">
+                                        {loading ? 'Sending...' : 'Send Reset Link'}
+                                    </button>
+                                </div>
+                            </form>
+                        </motion.div>
                     </motion.div>
+                )}
+            </AnimatePresence>
+
+            <div className="relative w-full max-w-4xl bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+            
+            {isSuccess && (
+                <motion.div 
+                className="absolute inset-0 bg-slate-900/90 flex justify-center items-center z-40"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                >
+                <LoadingSpinner />
                 </motion.div>
             )}
-        </AnimatePresence>
 
-        <div className="relative w-full max-w-5xl bg-slate-800/80 backdrop-blur-sm border border-slate-700 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
-          
-          {isSuccess && (
-            <motion.div 
-              className="absolute inset-0 bg-slate-900/90 flex justify-center items-center z-40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <LoadingSpinner />
-            </motion.div>
-          )}
-
-          <div className="p-8 md:p-12">
-            <div className="mb-8">
-              <h2 className="text-sm font-bold tracking-widest uppercase text-blue-500">IN8</h2>
-              <h1 className="text-3xl font-bold text-slate-100 mt-2">{isLogin ? 'Welcome Back' : 'Create Account'}</h1>
-              <p className="text-slate-400 mt-1">{isLogin ? 'Sign in to continue your journey.' : 'Get started with a free account.'}</p>
-            </div>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {!isLogin && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required={!isLogin} className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 text-white placeholder-slate-500 py-2 outline-none transition-colors duration-300" placeholder="First Name" />
-                  <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required={!isLogin} className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 text-white placeholder-slate-500 py-2 outline-none transition-colors duration-300" placeholder="Last Name" />
+            {/* --- Left Column: Authentication Form --- */}
+            <div className="p-6 md:p-10 flex flex-col justify-center">
+                <div className="mb-6">
+                    <img 
+                        src={logoImage} 
+                        alt="Your Company Logo" 
+                        className="h-9 w-auto"
+                    />
+                    {/* CHANGE: Wrapped changing text in AnimatePresence for a smooth cross-fade animation. */}
+                    {/* The parent div has a fixed height (h-20) to prevent the layout from shifting during the animation. */}
+                    <div className="relative h-20 mt-4">
+                        <AnimatePresence initial={false}>
+                            <motion.div
+                                key={isLogin ? 'login-title' : 'signup-title'}
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 10 }}
+                                transition={{ duration: 0.3 }}
+                                className="absolute inset-0"
+                            >
+                                <h1 className="text-2xl font-bold text-slate-100">{isLogin ? 'Welcome Back' : 'Create Account'}</h1>
+                                <p className="text-slate-400 text-sm mt-1">{isLogin ? 'Sign in to continue your journey.' : 'Get started with a free account.'}</p>
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
                 </div>
-              )}
-              <div>
-                <label className="text-xs text-slate-400">Email Address</label>
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 text-white placeholder-slate-500 py-2 outline-none transition-colors duration-300" placeholder="you@example.com" />
-              </div>
-              <div>
-                <div className="flex justify-between items-center">
-                  <label className="text-xs text-slate-400">Password</label>
-                  {isLogin && <button type="button" onClick={() => setIsResetModalOpen(true)} className="text-xs font-medium text-blue-500 hover:text-blue-400">Forgot Password?</button>}
+
+                {/* CHANGE: Converted form to motion.form and added the `layout` prop. */}
+                {/* This will automatically animate the form's height when its content changes. */}
+                <motion.form 
+                    layout
+                    transition={{ duration: 0.4, type: "spring", bounce: 0.15 }}
+                    onSubmit={handleSubmit} 
+                    className="space-y-5"
+                >
+                    {/* CHANGE: Wrapped conditional inputs in AnimatePresence for smooth entry/exit. */}
+                    <AnimatePresence initial={false}>
+                        {!isLogin && (
+                        <motion.div
+                            key="nameFields" // A unique key is crucial for AnimatePresence
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto', transition: { duration: 0.3 } }}
+                            exit={{ opacity: 0, height: 0, transition: { duration: 0.2 } }}
+                            className="overflow-hidden" // Hide content as height collapses
+                        >
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required={!isLogin} className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 text-white placeholder-slate-500 py-2 outline-none transition-colors duration-300" placeholder="First Name" />
+                                <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required={!isLogin} className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 text-white placeholder-slate-500 py-2 outline-none transition-colors duration-300" placeholder="Last Name" />
+                            </div>
+                        </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    <div>
+                        <label className="text-xs text-slate-400">Email Address</label>
+                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 text-white placeholder-slate-500 py-2 outline-none transition-colors duration-300" placeholder="you@example.com" />
+                    </div>
+                    <div>
+                        <div className="flex justify-between items-center">
+                        <label className="text-xs text-slate-400">Password</label>
+                        {isLogin && <button type="button" onClick={() => setIsResetModalOpen(true)} className="text-xs font-medium text-blue-500 hover:text-blue-400">Forgot Password?</button>}
+                        </div>
+                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 text-white placeholder-slate-500 py-2 outline-none transition-colors duration-300" placeholder="••••••••" />
+                    </div>
+                    <div>
+                        <button type="submit" disabled={loading || isSuccess} className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ring-offset-slate-900 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                        {loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Create Account')}
+                        </button>
+                    </div>
+                    <div className="flex items-center justify-center">
+                        <div className="flex-grow border-t border-slate-700"></div>
+                        <span className="mx-4 text-xs font-medium text-slate-500">OR</span>
+                        <div className="flex-grow border-t border-slate-700"></div>
+                    </div>
+                    <div>
+                        <button onClick={handleGoogleAuth} type="button" disabled={loading || isSuccess} className="w-full flex items-center justify-center bg-slate-700 border border-slate-600 rounded-lg px-4 py-2 text-sm font-medium text-slate-300 hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 ring-offset-slate-900 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <GoogleIcon />
+                        Sign in with Google
+                        </button>
+                    </div>
+                </motion.form>
+                <div className="text-center mt-6">
+                <div className="text-sm text-slate-400">
+                    {isLogin ? "Don't have an account?" : 'Already have an account?'}
+                    <button onClick={toggleAuthMode} className="ml-1 font-medium text-blue-500 hover:text-blue-400 hover:underline">
+                    {isLogin ? 'Sign Up' : 'Sign In'}
+                    </button>
                 </div>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="w-full bg-transparent border-b-2 border-slate-600 focus:border-blue-500 text-white placeholder-slate-500 py-2 outline-none transition-colors duration-300" placeholder="••••••••" />
-              </div>
-              <div>
-                <button type="submit" disabled={loading || isSuccess} className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-md font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ring-offset-slate-900 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
-                  {loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Create Account')}
-                </button>
-              </div>
-              <div className="flex items-center justify-center">
-                <div className="flex-grow border-t border-slate-700"></div>
-                <span className="mx-4 text-xs font-medium text-slate-500">OR</span>
-                <div className="flex-grow border-t border-slate-700"></div>
-              </div>
-              <div>
-                <button onClick={handleGoogleAuth} type="button" disabled={loading || isSuccess} className="w-full flex items-center justify-center bg-slate-700 border border-slate-600 rounded-lg px-4 py-2.5 text-md font-medium text-slate-300 hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 ring-offset-slate-900 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed">
-                  <GoogleIcon />
-                  Sign in with Google
-                </button>
-              </div>
-            </form>
-            <div className="text-center mt-6">
-              <div className="text-sm text-slate-400">
-                {isLogin ? "Don't have an account?" : 'Already have an account?'}
-                <button onClick={toggleAuthMode} className="ml-1 font-medium text-blue-500 hover:text-blue-400 hover:underline">
-                  {isLogin ? 'Sign Up' : 'Sign In'}
-                </button>
-              </div>
+                </div>
             </div>
-          </div>
-          
-          <div className="hidden md:flex flex-col justify-center items-center text-center p-12 bg-slate-900/50 rounded-r-2xl">
-              <h1 className="text-5xl font-extrabold text-white tracking-tighter">IN8</h1>
-              <p className="text-lg text-slate-300 mt-2">Seamless. Secure. Smarter Video Meetings.</p>
-              <div className="mt-8"><AnimatedGraphic /></div>
-              <p className="text-sm text-slate-400 mt-8 max-w-xs">Connect with clarity, collaborate in real-time, and experience the future of virtual meetings with cutting-edge performance.</p>
-          </div>
+            
+            {/* --- Right Column: Image Banner --- */}
+            <div className="hidden md:block">
+                <img 
+                    src={authBannerImage} 
+                    alt="Promotional Banner" 
+                    className="w-full h-full object-cover rounded-r-2xl"
+                />
+            </div>
+            </div>
         </div>
       </div>
     </>

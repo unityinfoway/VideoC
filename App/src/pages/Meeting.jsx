@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
     Video, Mic, MicOff, Rss, Radio, ChevronDown, User, Users, Clock, Hash,
     PlayCircle, StopCircle, Settings, LogOut, Bell, Search, LayoutDashboard,
     Calendar, UserCog, Shield, SlidersHorizontal, HardDrive, BellRing, BookText,
-    CircleUserRound
+    CircleUserRound, Link, Mail, Share2, CalendarPlus, VideoIcon, Clock4
 } from 'lucide-react';
-import MyLogo from '../assets/logo.png';
+import Sidebar from "../components/Sidebar.jsx";
 
 // --- Animated Background Component ---
 const AnimatedBackground = () => {
@@ -47,73 +47,154 @@ const AnimatedBackground = () => {
     );
 };
 
-// --- Sidebar Component (Conceptually, this would be in its own file e.g., components/Sidebar.js) ---
-
-const SidebarLink = ({ icon: Icon, text, active, onClick }) => (
-    <a href="#" onClick={onClick} className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors relative ${ active ? 'bg-blue-600/30 text-white font-medium' : 'text-slate-300 hover:bg-white/10 hover:text-white' }`}>
-        {active && <motion.div layoutId="active-pill" className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-r-full" />}
-        <Icon size={18} />
-        <span>{text}</span>
-    </a>
+// --- Toggle Switch Component ---
+const ToggleSwitch = ({ label, enabled, setEnabled, icon: Icon }) => (
+    <div className="flex items-center justify-between p-3 bg-slate-700/30 rounded-lg">
+        <div className="flex items-center gap-3">
+            <Icon className="text-slate-400" size={18} />
+            <span className="text-slate-300 text-sm font-medium">{label}</span>
+        </div>
+        <button 
+            onClick={() => setEnabled(!enabled)}
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-800 focus:ring-blue-500 ${enabled ? 'bg-blue-500' : 'bg-slate-600'}`}
+        >
+            <motion.span
+                animate={{ x: enabled ? 22 : 2 }}
+                transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+                className="inline-block h-5 w-5 transform rounded-full bg-white"
+            />
+        </button>
+    </div>
 );
 
-const CollapsibleSection = ({ title, children }) => {
-    const [isOpen, setIsOpen] = useState(true);
-    return (
-        <div>
-            <button onClick={() => setIsOpen(!isOpen)} className="flex items-center justify-between w-full px-4 py-2 text-xs font-semibold tracking-wider text-slate-500 uppercase">
-                <span>{title}</span>
-                <ChevronDown size={16} className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
-            </button>
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }} className="pl-4 pr-2 pt-1 space-y-1 overflow-hidden">
-                        {children}
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </div>
-    );
-};
 
-const Sidebar = ({ activeLink, setActiveLink }) => {
-    const Logo = MyLogo; // Replace with your actual logo path
+// --- Create Meeting Component ---
+const CreateMeeting = () => {
+    const [scheduleOption, setScheduleOption] = useState('now');
+    const [copied, setCopied] = useState(false);
+    const [enableWaitingRoom, setEnableWaitingRoom] = useState(true);
+    const [muteOnEntry, setMuteOnEntry] = useState(false);
+    const [allowJoinAnytime, setAllowJoinAnytime] = useState(false);
+
+
+    const handleCopy = () => {
+        const meetingLink = "https://in8.video/join/project-kickoff-123";
+        navigator.clipboard.writeText(meetingLink).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        });
+    };
+
+    const containerVariants = {
+        hidden: { opacity: 1 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.07
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } }
+    };
+
     return (
-        <aside className="w-64 min-h-screen hidden lg:flex flex-col bg-black/20 backdrop-blur-lg p-4 border-r border-slate-800">
-             <div className="flex items-center gap-3 p-4">
-                <img src={Logo} alt="IN8 Logo" className="w-16 h-16 object-contain" />
-                <h1 className="text-2xl font-bold text-white">IN8</h1>
-            </div>
-            <nav className="flex-1 space-y-4 mt-6">
-                <div className="px-2">
-                    <SidebarLink icon={LayoutDashboard} text="Dashboard" active={activeLink === 'Dashboard'} onClick={() => setActiveLink('Dashboard')} />
+        <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="p-8 bg-slate-800/50 rounded-2xl border border-slate-700/50 h-full flex flex-col"
+        >
+            <motion.h2 variants={itemVariants} className="text-3xl font-bold text-white">Create a New Meeting</motion.h2>
+            <motion.p variants={itemVariants} className="text-slate-400 mt-2 mb-8">Instantly start or schedule meetings for a future date.</motion.p>
+            
+            <div className="flex-grow flex flex-col space-y-6">
+                <div className="grid md:grid-cols-2 gap-x-8 gap-y-6">
+                    {/* Left Column: Form */}
+                    <motion.div variants={itemVariants} className="space-y-4">
+                        <h3 className="text-lg font-semibold text-white">1. Meeting Details</h3>
+                        <div className="relative">
+                            <VideoIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                            <input type="text" placeholder="Meeting Name" className="w-full bg-slate-700/50 border-2 border-slate-600 rounded-lg py-3 pl-12 pr-4 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                        </div>
+                        <div className="relative">
+                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                            <input type="email" placeholder="Invite with email (comma separated)" className="w-full bg-slate-700/50 border-2 border-slate-600 rounded-lg py-3 pl-12 pr-4 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                        </div>
+                    </motion.div>
+
+                    {/* Right Column: Options */}
+                    <motion.div variants={itemVariants} className="space-y-4">
+                        <h3 className="text-lg font-semibold text-white">2. Meeting Options</h3>
+                        <div className="space-y-3">
+                             <ToggleSwitch label="Enable waiting room" enabled={enableWaitingRoom} setEnabled={setEnableWaitingRoom} icon={Users} />
+                             <ToggleSwitch label="Mute participants on entry" enabled={muteOnEntry} setEnabled={setMuteOnEntry} icon={MicOff} />
+                             <ToggleSwitch label="Allow to join anytime" enabled={allowJoinAnytime} setEnabled={setAllowJoinAnytime} icon={Clock} />
+                        </div>
+                    </motion.div>
                 </div>
-                <CollapsibleSection title="Workspace">
-                    <SidebarLink icon={Video} text="Meetings" active={activeLink === 'Meetings'} onClick={() => setActiveLink('Meetings')} />
-                    <SidebarLink icon={Calendar} text="Calendar" active={activeLink === 'Calendar'} onClick={() => setActiveLink('Calendar')} />
-                </CollapsibleSection>
-                <CollapsibleSection title="Admin Tools">
-                    <SidebarLink icon={UserCog} text="User Management" active={activeLink === 'User Management'} onClick={() => setActiveLink('User Management')} />
-                    <SidebarLink icon={Shield} text="Security" active={activeLink === 'Security'} onClick={() => setActiveLink('Security')} />
-                    <SidebarLink icon={SlidersHorizontal} text="Customization" active={activeLink === 'Customization'} onClick={() => setActiveLink('Customization')} />
-                    <SidebarLink icon={HardDrive} text="System Status" active={activeLink === 'System Status'} onClick={() => setActiveLink('System Status')} />
-                </CollapsibleSection>
-                <CollapsibleSection title="Resources">
-                    <SidebarLink icon={BellRing} text="Notifications" active={activeLink === 'Notifications'} onClick={() => setActiveLink('Notifications')} />
-                    <SidebarLink icon={BookText} text="Documentation" active={activeLink === 'Documentation'} onClick={() => setActiveLink('Documentation')} />
-                </CollapsibleSection>
-            </nav>
-            <div className="mt-auto p-2 border-t border-slate-700/50">
-                <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/10">
-                    <CircleUserRound size={36} className="text-slate-400" />
-                    <div className="flex-1">
-                        <p className="text-sm font-medium text-white">Olivia Rhye</p>
-                        <p className="text-xs text-slate-400">olivia@in8.com</p>
+                
+                {/* Spanning Row: Schedule */}
+                <motion.div variants={itemVariants} className="space-y-4">
+                     <h3 className="text-lg font-semibold text-white">3. Schedule</h3>
+                     <div className="flex bg-slate-700/50 border-2 border-slate-600 rounded-lg p-1">
+                        <button onClick={() => setScheduleOption('now')} className={`w-1/2 py-2 rounded-md text-sm font-semibold transition-colors ${scheduleOption === 'now' ? 'bg-blue-500 text-white shadow-lg' : 'text-slate-300 hover:bg-slate-600/50'}`}>
+                            Create Now
+                        </button>
+                        <button onClick={() => setScheduleOption('later')} className={`w-1/2 py-2 rounded-md text-sm font-semibold transition-colors ${scheduleOption === 'later' ? 'bg-blue-500 text-white shadow-lg' : 'text-slate-300 hover:bg-slate-600/50'}`}>
+                            Schedule for Later
+                        </button>
                     </div>
-                    <LogOut size={18} className="text-slate-500 hover:text-red-400 cursor-pointer" />
-                </div>
+                    <AnimatePresence>
+                        {scheduleOption === 'later' && (
+                            <motion.div 
+                                initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                                animate={{ opacity: 1, height: 'auto', marginTop: '1rem' }}
+                                exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                className="overflow-hidden"
+                            >
+                                <div className="grid sm:grid-cols-2 gap-4">
+                                    <div className="relative">
+                                        <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                                        <input type="date" className="w-full bg-slate-700/50 border-2 border-slate-600 rounded-lg py-3 pl-12 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                                    </div>
+                                     <div className="relative">
+                                        <Clock4 className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                                        <input type="time" className="w-full bg-slate-700/50 border-2 border-slate-600 rounded-lg py-3 pl-12 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </motion.div>
+                 {/* Spanning Row: Sharing */}
+                <motion.div variants={itemVariants} className="p-4 bg-slate-900/50 rounded-lg border-2 border-slate-700">
+                     <h4 className="font-semibold text-white mb-2">Share Invitation</h4>
+                     <p className="text-sm text-slate-400 mb-4">A unique link will be generated after you create the meeting.</p>
+                     <div className="flex gap-4">
+                         <button className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-slate-700/80 hover:bg-slate-700 transition-colors text-sm font-medium opacity-50 cursor-not-allowed">
+                             <Share2 size={16} /> Share
+                         </button>
+                         <button onClick={handleCopy} className="w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-slate-700/80 hover:bg-slate-700 transition-colors text-sm font-medium opacity-50 cursor-not-allowed">
+                             <Link size={16} /> Copy Link
+                         </button>
+                     </div>
+                 </motion.div>
             </div>
-        </aside>
+            
+            {/* Main Action Button */}
+            <div className="mt-8">
+                <motion.button 
+                    className="w-full py-4 px-6 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 font-semibold text-white transition-all hover:from-blue-500 hover:to-purple-500 shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:shadow-[0_0_30px_rgba(59,130,246,0.7)]"
+                    whileTap={{ scale: 0.98 }}
+                >
+                    {scheduleOption === 'now' ? 'Create & Start Meeting' : 'Schedule Meeting'}
+                </motion.button>
+            </div>
+        </motion.div>
     );
 };
 
@@ -122,17 +203,10 @@ const Sidebar = ({ activeLink, setActiveLink }) => {
 const MeetingPage = () => {
     const [isStreaming, setIsStreaming] = useState(false);
     const [isRecording, setIsRecording] = useState(true);
-    const [activeLink, setActiveLink] = useState('Meetings');
-
-    const participants = [
-        { name: 'Ethan Harper', role: 'Host', avatar: 'https://i.pravatar.cc/150?u=ethan', micOn: true },
-        { name: 'Sophia Clark', role: 'Participant', avatar: 'https://i.pravatar.cc/150?u=sophia', micOn: false },
-        { name: 'Liam Bennett', role: 'Participant', avatar: 'https://i.pravatar.cc/150?u=liam', micOn: true },
-    ];
 
     return (
         <div className="flex h-screen relative z-10">
-            <Sidebar activeLink={activeLink} setActiveLink={setActiveLink} />
+            <Sidebar/>
             
             <div className="flex-1 flex flex-col h-screen">
                 {/* Header */}
@@ -154,83 +228,60 @@ const MeetingPage = () => {
                 {/* Main Content */}
                 <main className="flex-1 p-8 grid lg:grid-cols-3 gap-8 overflow-y-auto">
                     {/* Left Panel */}
-                    <motion.div initial={{opacity: 0, x: -20}} animate={{opacity: 1, x: 0}} transition={{duration: 0.5, delay: 0.2}} className="lg:col-span-2 p-8 bg-slate-800/50 rounded-2xl border border-slate-700/50">
-                        <h2 className="text-3xl font-bold text-white">Live Streaming & Recording</h2>
-                        <p className="text-slate-400 mt-2">Manage your live streams and recordings for the meeting "Project Kickoff".</p>
-
-                        <div className="mt-8 space-y-10">
-                            {/* Live Streaming Section */}
-                            <section>
-                                <h3 className="flex items-center gap-3 text-xl font-semibold text-white mb-4"><Rss className="text-blue-400" /> Live Streaming</h3>
-                                <div className="grid md:grid-cols-3 gap-4 items-center">
-                                    <div className="relative">
-                                        <select className="w-full appearance-none bg-slate-700/50 border border-slate-600 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                            <option>Facebook Live</option>
-                                            <option>YouTube Live</option>
-                                            <option>Twitch</option>
-                                        </select>
-                                        <ChevronDown size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-                                    </div>
-                                    <motion.button onClick={() => setIsStreaming(true)} disabled={isStreaming} className="flex items-center justify-center gap-2 py-3 px-6 rounded-lg bg-blue-600 font-semibold text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:bg-blue-500" whileTap={{scale: 0.95}}><PlayCircle size={20}/> Start Streaming</motion.button>
-                                    <motion.button onClick={() => setIsStreaming(false)} disabled={!isStreaming} className="flex items-center justify-center gap-2 py-3 px-6 rounded-lg bg-slate-700 font-semibold text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:bg-slate-600" whileTap={{scale: 0.95}}><StopCircle size={20}/> Stop</motion.button>
-                                </div>
-                                <div className="mt-4 flex items-center gap-2 text-sm">
-                                    {isStreaming ? <motion.div initial={{scale:0}} animate={{scale:1}} className="w-3 h-3 rounded-full bg-green-500"></motion.div> : <div className="w-3 h-3 rounded-full bg-slate-600"></div>}
-                                    <span className={isStreaming ? "text-green-400" : "text-slate-400"}>{isStreaming ? "Stream is live" : "Stream is offline"}</span>
-                                </div>
-                            </section>
-
-                            {/* Recording Section */}
-                            <section>
-                                <h3 className="flex items-center gap-3 text-xl font-semibold text-white mb-4"><Radio className="text-red-400" /> Recording</h3>
-                                <div className="grid md:grid-cols-3 gap-4 items-center">
-                                    <div className="relative">
-                                        <select className="w-full appearance-none bg-slate-700/50 border border-slate-600 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-red-500">
-                                            <option>Gallery View</option>
-                                            <option>Speaker View</option>
-                                            <option>Shared Screen</option>
-                                        </select>
-                                        <ChevronDown size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
-                                    </div>
-                                    <motion.button onClick={() => setIsRecording(true)} disabled={isRecording} className="flex items-center justify-center gap-2 py-3 px-6 rounded-lg bg-red-600 font-semibold text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:bg-red-500" whileTap={{scale: 0.95}}><PlayCircle size={20}/> Start Recording</motion.button>
-                                    <motion.button onClick={() => setIsRecording(false)} disabled={!isRecording} className="flex items-center justify-center gap-2 py-3 px-6 rounded-lg bg-slate-700 font-semibold text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:bg-slate-600" whileTap={{scale: 0.95}}><StopCircle size={20}/> Stop</motion.button>
-                                </div>
-                                <div className="mt-4 flex items-center gap-2 text-sm">
-                                    {isRecording ? <motion.div initial={{scale:0}} animate={{scale:1}} className="w-3 h-3 rounded-full bg-red-500"></motion.div> : <div className="w-3 h-3 rounded-full bg-slate-600"></div>}
-                                    <span className={isRecording ? "text-red-400" : "text-slate-400"}>{isRecording ? "Recording active: 00:15:32" : "Not recording"}</span>
-                                </div>
-                            </section>
-                        </div>
+                    <motion.div initial={{opacity: 0, x: -20}} animate={{opacity: 1, x: 0}} transition={{duration: 0.5, delay: 0.2}} className="lg:col-span-2">
+                        <CreateMeeting />
                     </motion.div>
 
-                    {/* Right Sidebar */}
-                    <motion.div initial={{opacity: 0, x: 20}} animate={{opacity: 1, x: 0}} transition={{duration: 0.5, delay: 0.4}} className="space-y-8">
-                        <div className="p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50">
-                            <h3 className="text-xl font-semibold text-white mb-4">Meeting Details</h3>
-                            <div className="space-y-3 text-sm">
-                                <div className="flex justify-between"><span className="text-slate-400">Meeting Name</span><span className="font-medium text-white">Project Kickoff</span></div>
-                                <div className="flex justify-between"><span className="text-slate-400">Meeting ID</span><span className="font-medium text-white">123-456-789</span></div>
-                                <div className="flex justify-between"><span className="text-slate-400">Start Time</span><span className="font-medium text-white">10:00 AM</span></div>
-                                <div className="flex justify-between"><span className="text-slate-400">Duration</span><span className="font-medium text-white">1 hour</span></div>
-                            </div>
-                        </div>
-                        <div className="p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50">
-                            <h3 className="text-xl font-semibold text-white mb-4">Participants ({participants.length})</h3>
+                    {/* Right Sidebar - MODIFIED */}
+                    <motion.div 
+                        initial={{opacity: 0, x: 20}} 
+                        animate={{opacity: 1, x: 0}} 
+                        transition={{duration: 0.5, delay: 0.4}} 
+                        className="flex flex-col justify-around p-6 bg-slate-800/50 rounded-2xl border border-slate-700/50"
+                    >
+                        <section>
+                            <h3 className="flex items-center gap-3 text-xl font-semibold text-white mb-4"><Rss className="text-blue-400" /> Live Streaming</h3>
                             <div className="space-y-4">
-                                {participants.map(p => (
-                                    <div key={p.name} className="flex items-center justify-between">
-                                        <div className="flex items-center gap-3">
-                                            <img src={p.avatar} alt={p.name} className="w-10 h-10 rounded-full"/>
-                                            <div>
-                                                <p className="font-medium text-white">{p.name}</p>
-                                                <p className="text-xs text-slate-400">{p.role}</p>
-                                            </div>
-                                        </div>
-                                        {p.micOn ? <Mic size={20} className="text-green-400"/> : <MicOff size={20} className="text-red-400"/>}
-                                    </div>
-                                ))}
+                                <div className="relative">
+                                    <select className="w-full appearance-none bg-slate-700/50 border border-slate-600 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option>Facebook Live</option>
+                                        <option>YouTube Live</option>
+                                        <option>Twitch</option>
+                                    </select>
+                                    <ChevronDown size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+                                </div>
+                                <div className="flex gap-4">
+                                    <motion.button onClick={() => setIsStreaming(true)} disabled={isStreaming} className="w-full flex items-center justify-center gap-2 py-3 px-6 rounded-lg bg-blue-600 font-semibold text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:bg-blue-500" whileTap={{scale: 0.95}}><PlayCircle size={20}/> Start</motion.button>
+                                    <motion.button onClick={() => setIsStreaming(false)} disabled={!isStreaming} className="w-full flex items-center justify-center gap-2 py-3 px-6 rounded-lg bg-slate-700 font-semibold text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:bg-slate-600" whileTap={{scale: 0.95}}><StopCircle size={20}/> Stop</motion.button>
+                                </div>
                             </div>
-                        </div>
+                            <div className="mt-4 flex items-center gap-2 text-sm">
+                                {isStreaming ? <motion.div initial={{scale:0}} animate={{scale:1}} className="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.7)]"></motion.div> : <div className="w-3 h-3 rounded-full bg-slate-600"></div>}
+                                <span className={isStreaming ? "text-green-400" : "text-slate-400"}>{isStreaming ? "Stream is live" : "Stream is offline"}</span>
+                            </div>
+                        </section>
+
+                        <section>
+                            <h3 className="flex items-center gap-3 text-xl font-semibold text-white mb-4"><Radio className="text-red-400" /> Recording</h3>
+                             <div className="space-y-4">
+                                <div className="relative">
+                                    <select className="w-full appearance-none bg-slate-700/50 border border-slate-600 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-red-500">
+                                        <option>Gallery View</option>
+                                        <option>Speaker View</option>
+                                        <option>Shared Screen</option>
+                                    </select>
+                                    <ChevronDown size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+                                </div>
+                                <div className="flex gap-4">
+                                    <motion.button onClick={() => setIsRecording(true)} disabled={isRecording} className="w-full flex items-center justify-center gap-2 py-3 px-6 rounded-lg bg-red-600 font-semibold text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:bg-red-500" whileTap={{scale: 0.95}}><PlayCircle size={20}/> Record</motion.button>
+                                    <motion.button onClick={() => setIsRecording(false)} disabled={!isRecording} className="w-full flex items-center justify-center gap-2 py-3 px-6 rounded-lg bg-slate-700 font-semibold text-white disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:bg-slate-600" whileTap={{scale: 0.95}}><StopCircle size={20}/> Stop</motion.button>
+                                </div>
+                            </div>
+                            <div className="mt-4 flex items-center gap-2 text-sm">
+                                {isRecording ? <motion.div initial={{scale:0}} animate={{scale:1}} className="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.7)]"></motion.div> : <div className="w-3 h-3 rounded-full bg-slate-600"></div>}
+                                <span className={isRecording ? "text-red-400" : "text-slate-400"}>{isRecording ? "Recording active: 00:15:32" : "Not recording"}</span>
+                            </div>
+                        </section>
                     </motion.div>
                 </main>
             </div>
